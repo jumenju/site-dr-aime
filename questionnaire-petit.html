@@ -20,7 +20,12 @@
                 <div class="logo-sub">Médecin Généraliste</div>
             </div>
         </div>
-        <ul class="nav-liens">
+        <button class="menu-burger" id="menu-burger" aria-label="Menu de navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-liens" id="nav-liens">
             <li><a href="index.html">Accueil</a></li>
             <li><a href="questionnaire-petit.html" class="actif">6 mois – 4 ans</a></li>
             <li><a href="questionnaire-grand.html">4 – 16 ans</a></li>
@@ -142,6 +147,7 @@
         <p><strong>Dr Marine AIME</strong> — Médecin Généraliste</p>
         <p>Pôle Santé, 36 rue du Moulin des Justices, 17138 Puilboreau &nbsp;|&nbsp; 09 73 03 05 76</p>
         <p class="footer-disclaimer">Ces questionnaires ne remplacent pas un avis médical. Ils sont destinés à préparer votre consultation.</p>
+        <p class="footer-legal"><a href="cgu.html">Conditions générales d'utilisation</a></p>
     </div>
 </footer>
 
@@ -627,5 +633,6 @@ function genererPDF() {
 
 document.addEventListener('DOMContentLoaded', renderWizard);
 </script>
+<script src="nav.js"></script>
 </body>
 </html>
