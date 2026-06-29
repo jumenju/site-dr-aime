@@ -324,8 +324,26 @@ function genererPDF() {
     if (!RESULTATS) return;
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    const { patient, habitudes, ss, total, total_depasse, date } = RESULTATS;
+    const { patient, habitudes, ss, total, total_depasse, date, reponses } = RESULTATS;
 
+    const CORAIL        = [232, 130, 90];
+    const CORAIL2       = [240, 160, 128];
+    const CORAIL_CLAIR  = [253, 240, 234];
+    const LAVANDE       = [139, 124, 184];
+    const LAVANDE_CLAIR = [240, 237, 248];
+    const CREME         = [250, 247, 242];
+    const VERT          = [92, 184, 122];
+    const VERT_CLAIR    = [234, 246, 238];
+    const ORANGE        = [217, 134, 58];
+    const ORANGE_CLAIR  = [253, 243, 227];
+    const ROUGE         = [214, 79, 79];
+    const ROUGE_CLAIR   = [253, 234, 234];
+    const TEXTE         = [45, 45, 45];
+    const TEXTE2        = [122, 122, 138];
+    const BLANC         = [255, 255, 255];
+    const BORDURE       = [237, 232, 224];
+
+    // ── kept for compat (unused) ──
     const BLEU   = [26, 82, 118];
     const BCLAIR = [214, 234, 248];
     const VERT   = [30, 132, 73];
@@ -335,128 +353,198 @@ function genererPDF() {
 
     let y = 0;
 
-    // En-tête
-    doc.setFillColor(...BLEU);
-    doc.rect(0, 0, 210, 33, 'F');
+    // ════ PAGE 1 : RÉSUMÉ ════
+
+    // En-tête corail
+    doc.setFillColor(...CORAIL);
+    doc.rect(0, 0, 210, 28, 'F');
+    doc.setFillColor(...CORAIL2);
+    doc.circle(198, 4, 16, 'F');
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(15); doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14); doc.setFont('helvetica', 'bold');
     doc.text('Dr Marine AIME', 105, 10, { align: 'center' });
-    doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5); doc.setFont('helvetica', 'normal');
     doc.text("Médecin Généraliste — Troubles du Sommeil de l'Enfant", 105, 17, { align: 'center' });
-    doc.text('Pôle Santé, 36 rue du Moulin des Justices, 17138 Puilboreau', 105, 23, { align: 'center' });
-    doc.text('Tél. secrétariat : 09 73 03 05 76', 105, 29, { align: 'center' });
-    y = 42;
+    doc.text('Pôle Santé, 36 rue du Moulin des Justices, 17138 Puilboreau  |  09 73 03 05 76', 105, 23, { align: 'center' });
+    y = 34;
 
     // Titre
-    doc.setTextColor(...BLEU);
-    doc.setFontSize(13); doc.setFont('helvetica', 'bold');
-    doc.text('Questionnaire SDSC — Enfant de 6 mois à 4 ans', 105, y, { align: 'center' });
-    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(...GRIS);
-    doc.text('Complété le : ' + date, 190, y, { align: 'right' });
-    y += 10;
+    doc.setFillColor(...CORAIL_CLAIR);
+    doc.roundedRect(15, y, 180, 10, 2, 2, 'F');
+    doc.setTextColor(...CORAIL); doc.setFontSize(10); doc.setFont('helvetica', 'bold');
+    doc.text('Questionnaire SDSC — Enfant de 6 mois à 4 ans', 105, y + 7, { align: 'center' });
+    doc.setFontSize(7); doc.setFont('helvetica', 'normal'); doc.setTextColor(...TEXTE2);
+    doc.text('Complété le : ' + date, 193, y + 7, { align: 'right' });
+    y += 15;
 
     // Patient
-    doc.setFillColor(...BCLAIR);
-    doc.roundedRect(15, y, 180, 24, 2, 2, 'F');
-    doc.setTextColor(...BLEU); doc.setFontSize(10); doc.setFont('helvetica', 'bold');
-    doc.text('Informations patient', 20, y + 7);
-    doc.setFont('helvetica', 'normal'); doc.setTextColor(50, 50, 50); doc.setFontSize(9);
-    doc.text('Prénom : ' + patient.prenom + '     Nom : ' + patient.nom, 20, y + 14);
+    doc.setFillColor(...CREME);
+    doc.roundedRect(15, y, 180, 18, 2, 2, 'F');
+    doc.setTextColor(...CORAIL); doc.setFontSize(8.5); doc.setFont('helvetica', 'bold');
+    doc.text('Informations patient', 20, y + 6);
+    doc.setTextColor(...TEXTE); doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+    doc.text(patient.prenom + ' ' + patient.nom, 20, y + 13);
     const ddnFr = patient.ddn ? new Date(patient.ddn).toLocaleDateString('fr-FR') : '';
-    doc.text('Naissance : ' + ddnFr + '     Sexe : ' + patient.sexe +
-        (patient.taille ? '     Taille : ' + patient.taille : '') +
-        (patient.poids  ? '     Poids : '  + patient.poids  : ''), 20, y + 20);
-    y += 32;
+    const infoLigne = [ddnFr ? 'Né(e) le ' + ddnFr : '', patient.sexe, patient.taille, patient.poids].filter(Boolean).join('   ·   ');
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(...TEXTE2);
+    doc.text(infoLigne, 105, y + 13, { align: 'center' });
+    y += 23;
 
     // Habitudes de sommeil
-    doc.setFillColor(248, 249, 250);
+    doc.setFillColor(...CREME);
     doc.roundedRect(15, y, 180, 38, 2, 2, 'F');
-    doc.setTextColor(...BLEU); doc.setFontSize(10); doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...CORAIL); doc.setFontSize(8.5); doc.setFont('helvetica', 'bold');
     doc.text('Habitudes de sommeil', 20, y + 7);
-    doc.setFont('helvetica', 'normal'); doc.setTextColor(50, 50, 50); doc.setFontSize(8.5);
-    const col1 = 20, col2 = 100, col3 = 150;
-    doc.setFont('helvetica', 'bold');
-    doc.text('', col1, y + 13);
-    doc.text('En semaine', col2, y + 13);
-    doc.text('Week-end', col3, y + 13);
+    const col1 = 20, col2 = 95, col3 = 148;
+    doc.setFontSize(7.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...TEXTE2);
+    doc.text('Semaine', col2, y + 13); doc.text('Week-end', col3, y + 13);
     doc.setFont('helvetica', 'normal');
-    doc.text('Heure de coucher',       col1, y + 19); doc.text(habitudes.coucherSem || '-', col2, y + 19); doc.text(habitudes.coucherWe || '-', col3, y + 19);
-    doc.text('Heure de lever',         col1, y + 25); doc.text(habitudes.leverSem   || '-', col2, y + 25); doc.text(habitudes.leverWe   || '-', col3, y + 25);
-    doc.text('Durée des siestes',       col1, y + 31); doc.text(habitudes.siestesSem || '-', col2, y + 31); doc.text(habitudes.siestesWe || '-', col3, y + 31);
+    [
+        ['Heure de coucher',  habitudes.coucherSem,  habitudes.coucherWe],
+        ['Heure de lever',    habitudes.leverSem,    habitudes.leverWe],
+        ['Durée des siestes', habitudes.siestesSem,  habitudes.siestesWe],
+        ['Éveil nocturne',    habitudes.eveilSem,    habitudes.eveilWe],
+    ].forEach((r, i) => {
+        const yy = y + 19 + i * 5;
+        doc.setTextColor(...TEXTE2); doc.text(r[0], col1, yy);
+        doc.setTextColor(...TEXTE); doc.text(r[1] || '—', col2, yy); doc.text(r[2] || '—', col3, yy);
+    });
     if (habitudes.nbReveils || habitudes.queFaites) {
-        doc.text('Réveils : ' + (habitudes.nbReveils || '-') + ' fois/nuit', col1, y + 37);
-        if (habitudes.queFaites) {
-            doc.text('Réaction : ' + habitudes.queFaites, col1 + 50, y + 37, { maxWidth: 130 });
-        }
+        doc.setTextColor(...TEXTE2); doc.setFontSize(7.5);
+        const rev = 'Réveils : ' + (habitudes.nbReveils || '—') + '/nuit' + (habitudes.queFaites ? '   ·   Réaction : ' + habitudes.queFaites : '');
+        doc.text(rev, col1, y + 39, { maxWidth: 170 });
     }
-    y += 46;
+    y += 44;
 
     // Score total
-    doc.setFillColor(...(total_depasse ? ROUGE : VERT));
-    doc.roundedRect(15, y, 180, 12, 2, 2, 'F');
-    doc.setTextColor(255, 255, 255); doc.setFontSize(10); doc.setFont('helvetica', 'bold');
-    doc.text('Score total', 20, y + 8);
-    doc.text(total + ' / ' + TOTAL_MAX, 120, y + 8);
-    doc.text(total_depasse ? 'Au-dessus du seuil' : 'Dans la norme', 193, y + 8, { align: 'right' });
-    y += 16;
+    const sCol = total_depasse ? ROUGE : VERT;
+    doc.setFillColor(...sCol);
+    doc.roundedRect(15, y, 180, 10, 2, 2, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFontSize(9); doc.setFont('helvetica', 'bold');
+    doc.text('Score total', 20, y + 7);
+    doc.text(total + ' / ' + TOTAL_MAX + '   (seuil : ' + TOTAL_SEUIL + ')', 105, y + 7, { align: 'center' });
+    doc.text(total_depasse ? '▲ Au-dessus du seuil' : '✓ Dans la norme', 193, y + 7, { align: 'right' });
+    y += 13;
 
     // Sous-scores
-    doc.setFontSize(9);
     ss.forEach((s, i) => {
-        doc.setFillColor(...(i % 2 === 0 ? [248, 249, 250] : [255, 255, 255]));
-        doc.rect(15, y, 180, 10, 'F');
-        doc.setTextColor(50, 50, 50);
-        doc.setFont('helvetica', s.depasse ? 'bold' : 'normal');
-        doc.text(s.label, 20, y + 7);
-        doc.text(s.score + ' / ' + s.max, 125, y + 7);
-        doc.text('Seuil : ' + s.seuil, 150, y + 7);
+        doc.setFillColor(...(i % 2 === 0 ? CREME : BLANC));
+        doc.rect(15, y, 180, 8, 'F');
+        const lc = s.depasse ? (s.alerte ? ROUGE : ORANGE) : VERT;
+        doc.setFillColor(...lc); doc.rect(15, y, 2.5, 8, 'F');
+        doc.setTextColor(...TEXTE); doc.setFont('helvetica', s.depasse ? 'bold' : 'normal'); doc.setFontSize(8);
+        doc.text(s.label, 21, y + 5.5);
+        doc.setTextColor(...TEXTE2); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
+        doc.text(s.score + ' / ' + s.max, 130, y + 5.5); doc.text('seuil ' + s.seuil, 152, y + 5.5);
         const bc = s.depasse ? (s.alerte ? ROUGE : ORANGE) : VERT;
-        doc.setFillColor(...bc);
-        doc.roundedRect(173, y + 2, 19, 6, 1, 1, 'F');
-        doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(7);
-        doc.text(s.depasse ? 'Haut' : 'Normal', 182.5, y + 6.5, { align: 'center' });
-        doc.setFontSize(9);
-        y += 10;
+        const bcc = s.depasse ? (s.alerte ? ROUGE_CLAIR : ORANGE_CLAIR) : VERT_CLAIR;
+        doc.setFillColor(...bcc); doc.roundedRect(172, y + 1, 20, 6, 1.5, 1.5, 'F');
+        doc.setTextColor(...bc); doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5);
+        doc.text(s.depasse ? 'Haut' : 'Normal', 182, y + 5.5, { align: 'center' });
+        y += 8;
     });
-    doc.setDrawColor(200, 200, 200);
-    doc.rect(15, y - ss.length * 10 - 12, 180, ss.length * 10 + 12, 'S');
-    y += 8;
+    doc.setDrawColor(...BORDURE); doc.setLineWidth(0.3);
+    doc.rect(15, y - ss.length * 8 - 13, 180, ss.length * 8 + 13, 'S');
+    y += 5;
 
     // Alertes
     const alertes = ss.filter(s => s.depasse && s.alerte);
     if (alertes.length > 0) {
-        doc.setFillColor(254, 243, 199); doc.setDrawColor(252, 196, 25);
-        doc.roundedRect(15, y, 180, 18, 2, 2, 'FD');
-        doc.setTextColor(133, 77, 14); doc.setFontSize(9); doc.setFont('helvetica', 'bold');
-        doc.text('Recommandation :', 20, y + 7);
+        doc.setFillColor(254, 249, 231); doc.setDrawColor(245, 200, 66); doc.setLineWidth(0.4);
+        doc.roundedRect(15, y, 180, 12, 2, 2, 'FD');
+        doc.setTextColor(133, 96, 0); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+        doc.text('Recommandation : ', 20, y + 5.5);
         doc.setFont('helvetica', 'normal');
-        doc.text('Les scores ' + alertes.map(a => a.cle).join(', ') + ' depassent le seuil. Une consultation specialisee est recommandee.', 20, y + 13, { maxWidth: 170 });
-        y += 24;
+        doc.text('Scores ' + alertes.map(a => a.cle).join(', ') + ' au-dessus du seuil — consultation spécialisée recommandée.', 62, y + 5.5, { maxWidth: 131 });
+        y += 17;
     }
-    y += 4;
 
     // Disclaimer
-    doc.setFillColor(...BCLAIR);
-    doc.roundedRect(15, y, 180, 20, 2, 2, 'F');
-    doc.setTextColor(...BLEU); doc.setFontSize(8); doc.setFont('helvetica', 'italic');
-    const disc = "Ces scores ne peuvent en aucun cas remplacer le diagnostic d'un specialiste du sommeil. Ce questionnaire est destine a preparer la consultation avec le Dr Marine AIME. Si les scores A, C ou E depassent le seuil, une consultation specialisee est recommandee.";
-    doc.text(disc, 20, y + 7, { maxWidth: 170 });
-    y += 28;
-
-    // Références
-    doc.setTextColor(...GRIS); doc.setFontSize(7); doc.setFont('helvetica', 'normal');
-    doc.text('Ref. : Bruni O, et al. The Sleep Disturbance Scale for Children (SDSC). J Sleep Res. 1996;5(4):251-61.', 15, y);
-    doc.text('Lecuelle F, et al. French validation of the SDSC in young children (6 months to 4 years). Sleep Med. 2020;67:56-65.', 15, y + 5);
+    doc.setFillColor(...LAVANDE_CLAIR);
+    doc.roundedRect(15, y, 180, 10, 2, 2, 'F');
+    doc.setTextColor(...LAVANDE); doc.setFontSize(7); doc.setFont('helvetica', 'italic');
+    doc.text("Ces scores ne remplacent pas le diagnostic d'un spécialiste. Ce questionnaire prépare la consultation avec le Dr Marine AIME.", 105, y + 7, { align: 'center', maxWidth: 170 });
     y += 14;
 
-    // Signature
-    doc.setTextColor(50, 50, 50); doc.setFontSize(9); doc.setFont('helvetica', 'normal');
-    doc.text('Signature / Cachet du médecin :', 15, y);
-    doc.setDrawColor(200, 200, 200);
-    doc.rect(15, y + 3, 80, 20, 'S');
+    // Références
+    doc.setTextColor(...TEXTE2); doc.setFontSize(6.5); doc.setFont('helvetica', 'normal');
+    doc.text('Réf. : Bruni O et al. SDSC. J Sleep Res. 1996. — Lecuelle F et al. Sleep Med. 2020;67:56-65.', 15, y);
+    y += 8;
 
-    const nomFichier = 'SDSC_6mois-4ans_' + patient.prenom + '_' + patient.nom + '_' + date.replace(/\//g, '-') + '.pdf';
-    doc.save(nomFichier);
+    // Signature
+    doc.setTextColor(...TEXTE); doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+    doc.text('Signature / Cachet du médecin :', 15, y);
+    doc.setDrawColor(...BORDURE); doc.setLineWidth(0.4);
+    doc.rect(15, y + 3, 75, 18, 'S');
+
+    // ════ PAGE 2 : TOUTES LES RÉPONSES ════
+    doc.addPage();
+    y = 15;
+
+    doc.setFillColor(...CORAIL);
+    doc.roundedRect(15, y, 180, 9, 2, 2, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFontSize(9.5); doc.setFont('helvetica', 'bold');
+    doc.text('Détail de toutes les réponses — ' + patient.prenom + ' ' + patient.nom + ' — ' + date, 105, y + 6.5, { align: 'center' });
+    y += 13;
+
+    doc.setFillColor(...CREME); doc.roundedRect(15, y, 180, 7, 2, 2, 'F');
+    doc.setTextColor(...TEXTE2); doc.setFontSize(6.5); doc.setFont('helvetica', 'italic');
+    doc.text('1 = Jamais   2 = Rarement (1-3×/mois)   3 = Parfois (1-2×/sem.)   4 = Souvent (3-5×/sem.)   5 = Toujours (quotidien)', 105, y + 5, { align: 'center' });
+    y += 11;
+
+    doc.setFontSize(7.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...TEXTE2);
+    doc.text('N°', 18, y); doc.text('Question', 27, y); doc.text('Réponse', 172, y, { align: 'center' });
+    y += 5;
+
+    QUESTIONS.forEach((q, idx) => {
+        const val = reponses[q.n];
+        const opt = q.o.find(o => o.v === val);
+        const repLabel = opt ? opt.l : '—';
+        const repSub = (opt && opt.s) ? opt.s : '';
+        const lines = doc.splitTextToSize(q.t, 128);
+        const blockH = Math.max(9, lines.length * 4 + 4);
+
+        if (y + blockH > 282) {
+            doc.addPage(); y = 15;
+            doc.setFillColor(...CREME); doc.roundedRect(15, y, 180, 7, 2, 2, 'F');
+            doc.setTextColor(...TEXTE2); doc.setFontSize(6.5); doc.setFont('helvetica', 'italic');
+            doc.text('(suite) — ' + patient.prenom + ' ' + patient.nom + ' · SDSC 6 mois – 4 ans · ' + date, 105, y + 5, { align: 'center' });
+            y += 11;
+        }
+
+        doc.setFillColor(...(idx % 2 === 0 ? CREME : BLANC));
+        doc.rect(15, y, 180, blockH, 'F');
+
+        doc.setTextColor(...CORAIL); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+        doc.text(String(q.n) + '.', 20, y + blockH / 2 + 1.5, { align: 'right' });
+
+        doc.setTextColor(...TEXTE); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
+        const textY = y + (blockH - lines.length * 4) / 2 + 4;
+        doc.text(lines, 23, textY);
+
+        const bc = val >= 4 ? ROUGE : (val === 3 ? ORANGE : VERT);
+        const bcc = val >= 4 ? ROUGE_CLAIR : (val === 3 ? ORANGE_CLAIR : VERT_CLAIR);
+        doc.setFillColor(...bcc);
+        doc.roundedRect(153, y + 1, 39, blockH - 2, 1.5, 1.5, 'F');
+        doc.setTextColor(...bc); doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5);
+        doc.text(String(val), 159, y + blockH / 2 + 2);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5);
+        doc.text(repLabel, 164, y + blockH / 2 + (repSub ? 0 : 1.5), { maxWidth: 26 });
+        if (repSub) {
+            doc.setFontSize(5.5); doc.setTextColor(...TEXTE2);
+            doc.text(repSub, 164, y + blockH / 2 + 4, { maxWidth: 26 });
+        }
+        y += blockH;
+    });
+
+    y += 6;
+    if (y > 278) { doc.addPage(); y = 15; }
+    doc.setFillColor(...CORAIL_CLAIR);
+    doc.roundedRect(15, y, 180, 7, 2, 2, 'F');
+    doc.setTextColor(...CORAIL); doc.setFontSize(7); doc.setFont('helvetica', 'italic');
+    doc.text('Document confidentiel · Dr Marine AIME · Pôle Santé · 09 73 03 05 76 · ' + date, 105, y + 5, { align: 'center' });
+
+    doc.save('SDSC_6mois-4ans_' + patient.prenom + '_' + patient.nom + '_' + date.replace(/\//g, '-') + '.pdf');
 }
 
 renderQuestions();
