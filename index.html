@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr Marine AIME — Troubles du Sommeil de l'Enfant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,8 +13,11 @@
 <header>
     <nav>
         <div class="logo">
-            <div class="logo-name">Dr Marine AIME</div>
-            <div class="logo-sub">Médecin Généraliste</div>
+            <div class="logo-badge">🌙</div>
+            <div>
+                <div class="logo-name">Dr Marine AIME</div>
+                <div class="logo-sub">Médecin Généraliste</div>
+            </div>
         </div>
         <ul class="nav-liens">
             <li><a href="index.html" class="actif">Accueil</a></li>
@@ -24,19 +29,26 @@
 </header>
 
 <section class="hero">
-    <div>
-        <h1>Troubles du Sommeil de l'Enfant</h1>
-        <p class="hero-sub">Préparez votre consultation en remplissant le questionnaire correspondant à l'âge de votre enfant.</p>
+    <div class="hero-inner">
+        <div class="hero-emoji-cloud">
+            <span class="float1">😴</span>
+            <span class="float2">🌙</span>
+            <span class="float3">⭐</span>
+        </div>
+        <h1>Votre enfant mérite de<br><span class="accent-corail">bonnes nuits</span> de <span class="accent-lavande">sommeil</span></h1>
+        <p class="hero-sub">Préparez votre consultation en remplissant notre questionnaire clinique. Simple, bienveillant, conçu pour les familles.</p>
         <div class="hero-cartes">
-            <a href="questionnaire-petit.html" class="hero-carte">
-                <div class="carte-age">6 mois – 4 ans</div>
-                <div class="carte-desc">Questionnaire SDSC pour nourrissons et jeunes enfants</div>
-                <div class="carte-btn">Commencer</div>
+            <a href="questionnaire-petit.html" class="hero-carte hero-carte-a">
+                <div class="carte-bulle bulle-corail">🍼</div>
+                <div class="carte-age carte-age-corail">6 mois – 4 ans</div>
+                <div class="carte-desc">Nourrissons et jeunes enfants · Questionnaire SDSC</div>
+                <div class="carte-btn btn-corail">Commencer</div>
             </a>
-            <a href="questionnaire-grand.html" class="hero-carte">
-                <div class="carte-age">4 – 16 ans</div>
-                <div class="carte-desc">Questionnaire SDSC pour enfants et adolescents</div>
-                <div class="carte-btn">Commencer</div>
+            <a href="questionnaire-grand.html" class="hero-carte hero-carte-b">
+                <div class="carte-bulle bulle-lavande">🌟</div>
+                <div class="carte-age carte-age-lavande">4 – 16 ans</div>
+                <div class="carte-desc">Enfants et adolescents · Questionnaire SDSC</div>
+                <div class="carte-btn btn-lavande">Commencer</div>
             </a>
         </div>
     </div>
@@ -45,26 +57,27 @@
 <section class="comment">
     <div class="container">
         <h2>Comment ça fonctionne ?</h2>
+        <p class="comment-sub">Quatre étapes simples pour préparer votre visite</p>
         <div class="etapes">
             <div class="etape">
-                <div class="etape-num">1</div>
-                <h3>Choisissez le questionnaire</h3>
-                <p>Sélectionnez le questionnaire adapté à l'âge de votre enfant</p>
+                <div class="etape-num etape-num-1">🎯</div>
+                <h3>Choisissez</h3>
+                <p>Le questionnaire adapté à l'âge de votre enfant</p>
             </div>
             <div class="etape">
-                <div class="etape-num">2</div>
-                <h3>Répondez aux questions</h3>
-                <p>Basez-vous sur vos observations des 6 derniers mois</p>
+                <div class="etape-num etape-num-2">💬</div>
+                <h3>Répondez</h3>
+                <p>En vous basant sur les 6 derniers mois</p>
             </div>
             <div class="etape">
-                <div class="etape-num">3</div>
-                <h3>Téléchargez le PDF</h3>
-                <p>Enregistrez votre rapport à apporter en consultation</p>
+                <div class="etape-num etape-num-3">📄</div>
+                <h3>Téléchargez</h3>
+                <p>Votre rapport PDF personnalisé</p>
             </div>
             <div class="etape">
-                <div class="etape-num">4</div>
-                <h3>Prenez rendez-vous</h3>
-                <p>Consultez le Dr Marine AIME pour analyser les résultats</p>
+                <div class="etape-num etape-num-4">👩‍⚕️</div>
+                <h3>Consultez</h3>
+                <p>Le Dr AIME analyse les résultats avec vous</p>
             </div>
         </div>
     </div>
@@ -75,15 +88,21 @@
         <h2>Dr Marine AIME</h2>
         <p class="pres-sous">Médecin Généraliste — Troubles du Sommeil de l'Enfant &amp; Neurodéveloppement</p>
 
+        <div class="pres-pills">
+            <span class="pres-pill pill-corail">Sommeil enfant</span>
+            <span class="pres-pill pill-lavande">TDAH · TSA · HPI</span>
+            <span class="pres-pill pill-vert">10 ans d'expérience</span>
+        </div>
+
         <div class="pres-bloc">
-            <h3>Mon parcours</h3>
+            <h3>🩺 Mon parcours</h3>
             <p>Médecin généraliste installée depuis dix ans dans la région de La Rochelle, j'ai orienté ma pratique vers la santé des enfants et des adolescents.</p>
             <p>Au quotidien, je rencontre des familles confrontées à des nuits difficiles, des enfants fatigués, des parents épuisés. Les troubles du sommeil de l'enfant sont souvent mal identifiés — pourtant, les prendre en charge tôt change profondément le quotidien de toute une famille.</p>
             <p>C'est pourquoi je me suis spécifiquement formée aux <strong>troubles du sommeil de l'enfant</strong> et aux <strong>troubles du neurodéveloppement</strong> (TDAH, TSA, Haut Potentiel Intellectuel), pour être un repère fiable pour vous et votre enfant.</p>
         </div>
 
         <div class="pres-bloc">
-            <h3>Mes engagements</h3>
+            <h3>💙 Mes engagements</h3>
             <ul class="engagements-liste">
                 <li>Réseau <strong>COCON</strong> — repérage précoce des enfants à risque de TND</li>
                 <li><strong>CPTS Aunis Nord</strong> — coordination des soins sur le territoire</li>
@@ -100,7 +119,7 @@
                 <p>Secrétariat : <a href="tel:0973030576">09 73 03 05 76</a></p>
             </div>
             <a href="https://www.doctolib.fr/medecin-generaliste/vendeuvre-du-poitou/marine-aime" target="_blank" class="btn-doctolib-grand">
-                Prendre rendez-vous sur Doctolib
+                📅 Prendre rendez-vous sur Doctolib
             </a>
         </div>
     </div>
