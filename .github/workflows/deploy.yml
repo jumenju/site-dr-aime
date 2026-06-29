@@ -10,6 +10,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 20
+      - name: Generate version.json
+        run: |
+          python3 -c "
+          import subprocess, json, datetime
+          result = subprocess.run(
+            ['git', 'log', '-20', '--pretty=format:%H|%h|%s|%ad|%an', '--date=short'],
+            capture_output=True, text=True
+          )
+          commits = []
+          for line in result.stdout.strip().split('\n'):
+            if line:
+              parts = line.split('|', 4)
+              if len(parts) == 5:
+                commits.append({'fullHash': parts[0], 'hash': parts[1], 'message': parts[2], 'date': parts[3], 'author': parts[4]})
+          data = {
+            'lastDeploy': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'branch': 'main',
+            'commits': commits
+          }
+          with open('version.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+          print(f'Generated version.json with {len(commits)} commits')
+          "
       - name: Deploy
         run: npx wrangler@4 deploy
         env:

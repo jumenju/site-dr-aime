@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Versions — Site Dr Aimé Marine</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fa;
+      color: #1a202c;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2b6cb0;
+    }
+
+    header p {
+      margin-top: 0.25rem;
+      font-size: 0.9rem;
+      color: #718096;
+    }
+
+    #last-deploy {
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      background: #ebf8ff;
+      border-left: 4px solid #3182ce;
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      color: #2c5282;
+    }
+
+    #last-deploy strong { font-weight: 600; }
+
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .commit {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .commit-dot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #3182ce;
+      margin-top: 6px;
+    }
+
+    .commit:first-child .dot {
+      background: #38a169;
+      width: 14px;
+      height: 14px;
+    }
+
+    .line {
+      width: 2px;
+      flex: 1;
+      background: #e2e8f0;
+      margin-top: 4px;
+    }
+
+    .commit:last-child .line { display: none; }
+
+    .commit-card {
+      flex: 1;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0;
+    }
+
+    .commit:first-child .commit-card {
+      border-color: #bee3f8;
+      background: #f0f9ff;
+    }
+
+    .commit-message {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #2d3748;
+      margin-bottom: 0.35rem;
+    }
+
+    .commit-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.78rem;
+      color: #718096;
+      flex-wrap: wrap;
+    }
+
+    .commit-hash {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      background: #edf2f7;
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: #4a5568;
+      font-size: 0.75rem;
+    }
+
+    .badge-latest {
+      display: inline-block;
+      background: #38a169;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 1px 7px;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    #error-msg {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff5f5;
+      border-left: 4px solid #fc8181;
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      color: #742a2a;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    footer {
+      max-width: 800px;
+      margin: 2rem auto 0;
+      font-size: 0.78rem;
+      color: #a0aec0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Historique des versions</h1>
+    <p>Site Dr Aimé Marine — Questionnaires pré-consultation sommeil enfant</p>
+  </header>
+
+  <div id="last-deploy" style="display:none">
+    Dernier déploiement : <strong id="deploy-date"></strong>
+  </div>
+
+  <div id="error-msg">
+    Impossible de charger l'historique des versions. Le fichier <code>version.json</code> n'est pas encore disponible.
+  </div>
+
+  <div class="timeline" id="timeline"></div>
+
+  <footer>
+    Mis à jour automatiquement à chaque déploiement &mdash; <a href="/" style="color:#a0aec0">Retour au site</a>
+  </footer>
+
+  <script>
+    fetch('/version.json')
+      .then(r => {
+        if (!r.ok) throw new Error('Not found');
+        return r.json();
+      })
+      .then(data => {
+        if (data.lastDeploy) {
+          const d = new Date(data.lastDeploy);
+          document.getElementById('deploy-date').textContent =
+            d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }) +
+            ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) + ' (UTC)';
+          document.getElementById('last-deploy').style.display = 'block';
+        }
+
+        const timeline = document.getElementById('timeline');
+        (data.commits || []).forEach((c, i) => {
+          const div = document.createElement('div');
+          div.className = 'commit';
+          div.innerHTML = `
+            <div class="commit-dot">
+              <div class="dot"></div>
+              <div class="line"></div>
+            </div>
+            <div class="commit-card">
+              <div class="commit-message">
+                ${escapeHtml(c.message)}
+                ${i === 0 ? '<span class="badge-latest">dernier</span>' : ''}
+              </div>
+              <div class="commit-meta">
+                <span class="commit-hash">${escapeHtml(c.hash)}</span>
+                <span>${escapeHtml(c.date)}</span>
+                <span>${escapeHtml(c.author)}</span>
+              </div>
+            </div>
+          `;
+          timeline.appendChild(div);
+        });
+      })
+      .catch(() => {
+        document.getElementById('error-msg').style.display = 'block';
+      });
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
