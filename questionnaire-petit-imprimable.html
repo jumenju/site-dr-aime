@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDSC 6 mois–4 ans — Version imprimable — Dr Marine AIME</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', serif; color: #2d2d2d; background: #fff; font-size: 11pt; line-height: 1.4; }
+
+        .no-print {
+            background: #e8825a;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            font-family: sans-serif;
+            font-size: .9rem;
+        }
+        .no-print button {
+            background: #fff;
+            color: #e8825a;
+            border: none;
+            padding: .5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: 1rem;
+            font-size: .9rem;
+        }
+
+        .page {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 20px 24px;
+        }
+
+        .header {
+            border-bottom: 3px solid #e8825a;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .header-title { font-family: sans-serif; }
+        .header-title h1 { font-size: 14pt; font-weight: 700; color: #e8825a; }
+        .header-title p  { font-size: 9pt; color: #666; margin-top: 2px; }
+        .header-ref { text-align: right; font-size: 8pt; color: #888; }
+
+        .patient-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 12px;
+            border: 1.5px solid #e8825a;
+            border-radius: 6px;
+            padding: 8px;
+            background: #fdf0ea;
+        }
+        .patient-field label { font-size: 8pt; font-weight: 700; color: #666; display: block; margin-bottom: 2px; font-family: sans-serif; }
+        .patient-field .field-line { border-bottom: 1px solid #999; min-height: 18px; }
+
+        .scale-legend {
+            background: #f0edf8;
+            border-left: 4px solid #8b7cb8;
+            padding: 6px 10px;
+            margin-bottom: 12px;
+            font-size: 8.5pt;
+            font-family: sans-serif;
+        }
+        .scale-legend strong { color: #8b7cb8; }
+
+        .section-title {
+            background: #e8825a;
+            color: #fff;
+            font-family: sans-serif;
+            font-size: 9pt;
+            font-weight: 700;
+            padding: 4px 10px;
+            margin: 10px 0 4px;
+            border-radius: 4px;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+        thead th {
+            background: #fdf0ea;
+            font-family: sans-serif;
+            font-size: 8pt;
+            font-weight: 700;
+            color: #666;
+            padding: 4px 6px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        thead th:first-child { text-align: left; }
+        tbody tr:nth-child(even) { background: #faf7f2; }
+        tbody td {
+            padding: 4px 6px;
+            border: 1px solid #e0dbd5;
+            font-size: 9.5pt;
+            vertical-align: middle;
+        }
+        tbody td:not(:first-child) { text-align: center; width: 52px; }
+        .q-num { color: #e8825a; font-weight: 700; font-family: sans-serif; margin-right: 4px; }
+        .circle {
+            display: inline-block;
+            width: 20px; height: 20px;
+            border: 1.5px solid #ccc;
+            border-radius: 50%;
+        }
+
+        .signature-block {
+            display: flex;
+            gap: 20px;
+            margin-top: 16px;
+            font-family: sans-serif;
+            font-size: 9pt;
+        }
+        .sig-zone { flex: 1; border: 1px solid #ccc; border-radius: 6px; padding: 8px; min-height: 60px; }
+        .sig-zone p { color: #666; margin-bottom: 4px; }
+
+        .footer-print {
+            margin-top: 14px;
+            border-top: 1px solid #ddd;
+            padding-top: 6px;
+            font-size: 7.5pt;
+            color: #888;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { font-size: 10pt; }
+            .page { padding: 10px 16px; }
+            thead th { background: #fdf0ea !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            tbody tr:nth-child(even) { background: #faf7f2 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .scale-legend { background: #f0edf8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .section-title { background: #e8825a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .patient-grid { background: #fdf0ea !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="no-print">
+    Questionnaire SDSC — Version imprimable &nbsp;|&nbsp; Utilisez le bouton ci-dessous ou Ctrl+P
+    <button onclick="window.print()">🖨 Imprimer</button>
+    <a href="ressources.html" style="color:#fff;margin-left:1.5rem;font-size:.85rem;">← Retour aux ressources</a>
+</div>
+
+<div class="page">
+
+    <div class="header">
+        <div class="header-title">
+            <h1>Dr Marine AIME &nbsp;·&nbsp; Questionnaire SDSC — Enfant de 6 mois à 4 ans</h1>
+            <p>Médecin Généraliste · Troubles du Sommeil de l'Enfant · Pôle Santé, 36 rue du Moulin des Justices, 17138 Puilboreau · 09 73 03 05 76</p>
+        </div>
+        <div class="header-ref">
+            Date : ___________<br>
+            Ref. Lecuelle F et al. Sleep Med. 2020
+        </div>
+    </div>
+
+    <!-- Patient -->
+    <div class="patient-grid">
+        <div class="patient-field"><label>Prénom de l'enfant *</label><div class="field-line"></div></div>
+        <div class="patient-field"><label>Nom *</label><div class="field-line"></div></div>
+        <div class="patient-field"><label>Date de naissance *</label><div class="field-line"></div></div>
+        <div class="patient-field"><label>Sexe *</label><div class="field-line"></div></div>
+        <div class="patient-field"><label>Taille</label><div class="field-line"></div></div>
+        <div class="patient-field"><label>Poids</label><div class="field-line"></div></div>
+        <div class="patient-field" style="grid-column:span 2"><label>Médecin / Personne qui remplit ce questionnaire</label><div class="field-line"></div></div>
+    </div>
+
+    <!-- Légende -->
+    <div class="scale-legend">
+        <strong>Échelle de fréquence :</strong> &nbsp;
+        <strong>1</strong> = Jamais &nbsp;·&nbsp;
+        <strong>2</strong> = Rarement (1–3×/mois) &nbsp;·&nbsp;
+        <strong>3</strong> = Parfois (1–2×/sem.) &nbsp;·&nbsp;
+        <strong>4</strong> = Souvent (3–5×/sem.) &nbsp;·&nbsp;
+        <strong>5</strong> = Toujours (quotidien) &nbsp;&nbsp;&nbsp;
+        Basez-vous sur les <strong>6 derniers mois</strong>. Entourez votre réponse.
+    </div>
+
+    <!-- Section A : Insomnies -->
+    <div class="section-title">A. Insomnies (seuil : &gt; 16)</div>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>1<br><small>Jamais</small></th>
+                <th>2<br><small>Rarement</small></th>
+                <th>3<br><small>Parfois</small></th>
+                <th>4<br><small>Souvent</small></th>
+                <th>5<br><small>Toujours</small></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="q-num">1</span> Combien d'heures l'enfant dort-il la plupart des nuits ? <small style="color:#888;">(1=+9h, 2=8-9h, 3=7-8h, 4=5-7h, 5=&lt;5h)</small></td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td>
+            </tr>
+            <tr>
+                <td><span class="q-num">2</span> Combien de temps l'enfant met-il pour s'endormir après sa mise au lit ? <small style="color:#888;">(1=&lt;15min, 2=15-30, 3=30-45, 4=45-60, 5=&gt;60min)</small></td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td>
+            </tr>
+            <tr><td><span class="q-num">3</span> L'enfant va au lit avec réticence</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">4</span> L'enfant a des difficultés à s'endormir</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">5</span> L'enfant ressent de l'anxiété ou des peurs au moment de s'endormir</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">8</span> L'enfant se réveille plus de 2 fois par nuit</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">9</span> L'enfant a des difficultés à se rendormir après s'être réveillé dans la nuit</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">10</span> L'enfant a des mouvements brusques ou des secousses des jambes, change souvent de position ou jette les couvertures</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+        </tbody>
+    </table>
+
+    <!-- Section B : Hyperhydrose -->
+    <div class="section-title">B. Hyperhydrose (seuil : &gt; 4)</div>
+    <table>
+        <thead>
+            <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><span class="q-num">7</span> L'enfant transpire excessivement à l'endormissement</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">14</span> L'enfant transpire excessivement pendant la nuit</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+        </tbody>
+    </table>
+
+    <!-- Section C : Problèmes respiratoires -->
+    <div class="section-title">C. Problèmes respiratoires (seuil : &gt; 4) ⚠</div>
+    <table>
+        <thead>
+            <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><span class="q-num">11</span> L'enfant a des difficultés à respirer durant la nuit</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">12</span> L'enfant fait des pauses respiratoires ou cherche sa respiration pendant son sommeil</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">13</span> L'enfant ronfle</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+        </tbody>
+    </table>
+
+    <!-- Section D : Parasomnies -->
+    <div class="section-title">D. Parasomnies (seuil : &gt; 7)</div>
+    <table>
+        <thead>
+            <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><span class="q-num">6</span> Lorsque l'enfant s'endort, il semble vivre ses rêves</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">15</span> Vous avez déjà entendu l'enfant parler dans son sommeil</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">16</span> L'enfant se réveille en hurlant ou est confus au point qu'il est impossible de l'approcher, mais n'a aucun souvenir le matin</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">17</span> L'enfant fait des cauchemars dont il ne se rappelle pas le matin venu</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+        </tbody>
+    </table>
+
+    <!-- Section E : Somnolence -->
+    <div class="section-title">E. Sommeil non réparateur &amp; Somnolence diurne (seuil : &gt; 7) ⚠</div>
+    <table>
+        <thead>
+            <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><span class="q-num">18</span> L'enfant est difficile à réveiller le matin</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">19</span> L'enfant se réveille le matin en se sentant fatigué</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">20</span> L'enfant se sent incapable de bouger quand il se réveille le matin</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">21</span> L'enfant est somnolent durant la journée</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+            <tr><td><span class="q-num">22</span> L'enfant s'endort brutalement, de façon inattendue, lors de ses activités</td>
+                <td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td><td><span class="circle"></span></td></tr>
+        </tbody>
+    </table>
+
+    <div class="signature-block">
+        <div class="sig-zone">
+            <p>Score total (/ 110) :</p>
+            <p style="margin-top:4px;">Sous-scores A B C D E :</p>
+        </div>
+        <div class="sig-zone" style="flex:2;">
+            <p>Notes / Observations :</p>
+        </div>
+    </div>
+
+    <div class="footer-print">
+        <span>Réf. : Lecuelle F et al. French validation of the SDSC in young children (6 months to 4 years). Sleep Med. 2020;67:56-65.</span>
+        <span>⚠ = consultation spécialisée recommandée si seuil dépassé</span>
+    </div>
+
+</div>
+
+</body>
+</html>

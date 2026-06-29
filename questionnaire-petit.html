@@ -22,113 +22,119 @@
         </div>
         <ul class="nav-liens">
             <li><a href="index.html">Accueil</a></li>
-            <li><a href="questionnaire-petit.html" class="actif">Questionnaire 6 mois – 4 ans</a></li>
-            <li><a href="questionnaire-grand.html">Questionnaire 4 – 16 ans</a></li>
+            <li><a href="questionnaire-petit.html" class="actif">6 mois – 4 ans</a></li>
+            <li><a href="questionnaire-grand.html">4 – 16 ans</a></li>
+            <li><a href="ressources.html">Ressources</a></li>
             <li><a href="https://www.doctolib.fr/medecin-generaliste/vendeuvre-du-poitou/marine-aime" target="_blank" class="nav-rdv">Prendre RDV</a></li>
         </ul>
     </nav>
 </header>
 
-<div class="quest-entete">
-    <div class="quest-entete-emoji">🍼</div>
-    <h1>Questionnaire SDSC — 6 mois à 4 ans</h1>
-    <p>Échelle de dépistage des troubles du sommeil du nourrisson et du jeune enfant</p>
-    <a href="index.html" class="quest-retour">← Retour à l'accueil</a>
+<!-- Barre de progression (masquée sur slide 0 et résultats) -->
+<div class="wiz-progress" id="wiz-progress">
+    <div class="wiz-progress-bar">
+        <div class="wiz-progress-fill" id="wiz-fill"></div>
+    </div>
+    <div class="wiz-progress-meta">
+        <span id="wiz-label-q">Question 1 / 22</span>
+        <span id="wiz-label-pct">0%</span>
+    </div>
 </div>
 
-<div class="quest-container">
+<!-- Wizard -->
+<div class="wiz-outer">
+    <div class="wiz-track" id="wiz-track">
 
-    <div class="info-box">
-        Pour répondre à ce questionnaire, basez-vous sur les observations que vous avez pu faire durant les <strong>six derniers mois</strong> et sélectionnez les réponses qui correspondent le mieux à ce que vous avez observé de votre enfant. Merci de répondre à toutes les questions.
-    </div>
-
-    <div class="patient-section">
-        <h2>Informations sur l'enfant</h2>
-        <div class="form-rangee">
-            <div class="form-groupe">
-                <label for="prenom">Prénom *</label>
-                <input type="text" id="prenom" placeholder="Prénom de l'enfant">
+        <!-- SLIDE 0 : Infos patient + habitudes -->
+        <div class="wiz-slide">
+            <div class="quest-entete">
+                <div class="quest-entete-emoji">🍼</div>
+                <h1>Questionnaire SDSC — 6 mois à 4 ans</h1>
+                <p>Échelle de dépistage des troubles du sommeil du nourrisson et du jeune enfant</p>
+                <a href="index.html" class="quest-retour">← Retour à l'accueil</a>
             </div>
-            <div class="form-groupe">
-                <label for="nom">Nom *</label>
-                <input type="text" id="nom" placeholder="Nom de l'enfant">
+            <div class="quest-container">
+                <div class="info-box">
+                    Pour répondre à ce questionnaire, basez-vous sur les observations que vous avez pu faire durant les <strong>six derniers mois</strong>. Merci de répondre à toutes les questions.
+                </div>
+
+                <div class="patient-section">
+                    <h2>Informations sur l'enfant</h2>
+                    <div class="form-rangee">
+                        <div class="form-groupe">
+                            <label for="prenom">Prénom *</label>
+                            <input type="text" id="prenom" placeholder="Prénom de l'enfant">
+                        </div>
+                        <div class="form-groupe">
+                            <label for="nom">Nom *</label>
+                            <input type="text" id="nom" placeholder="Nom de l'enfant">
+                        </div>
+                    </div>
+                    <div class="form-rangee">
+                        <div class="form-groupe">
+                            <label for="ddn">Date de naissance *</label>
+                            <input type="date" id="ddn">
+                        </div>
+                        <div class="form-groupe">
+                            <label for="sexe">Sexe *</label>
+                            <select id="sexe">
+                                <option value="">-- Sélectionner --</option>
+                                <option value="Garçon">Garçon</option>
+                                <option value="Fille">Fille</option>
+                            </select>
+                        </div>
+                        <div class="form-groupe">
+                            <label for="taille">Taille</label>
+                            <input type="text" id="taille" placeholder="ex : 90 cm">
+                        </div>
+                        <div class="form-groupe">
+                            <label for="poids">Poids</label>
+                            <input type="text" id="poids" placeholder="ex : 12 kg">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="horaires-section">
+                    <h2>Habitudes de sommeil</h2>
+                    <div class="horaires-grille">
+                        <div class="entete-col"></div>
+                        <div class="entete-col">En semaine</div>
+                        <div class="entete-col">En week-end</div>
+                        <div class="entete-ligne">Heure de coucher habituelle</div>
+                        <input type="text" id="coucher-sem" placeholder="ex : 20h30">
+                        <input type="text" id="coucher-we"  placeholder="ex : 21h00">
+                        <div class="entete-ligne">Heure de lever matinal habituelle</div>
+                        <input type="text" id="lever-sem" placeholder="ex : 7h00">
+                        <input type="text" id="lever-we"  placeholder="ex : 8h00">
+                        <div class="entete-ligne">Durée des siestes (journée)</div>
+                        <input type="text" id="siestes-sem" placeholder="ex : 1h30">
+                        <input type="text" id="siestes-we"  placeholder="ex : 1h00">
+                        <div class="entete-ligne">Durée d'éveil nocturne</div>
+                        <input type="text" id="eveil-sem" placeholder="ex : 30 min">
+                        <input type="text" id="eveil-we"  placeholder="ex : 0">
+                    </div>
+                    <div class="reveils-ligne">
+                        <div class="form-groupe">
+                            <label for="nb-reveils">Nombre de réveils par nuit</label>
+                            <input type="text" id="nb-reveils" placeholder="ex : 2">
+                        </div>
+                        <div class="form-groupe" style="flex:2;">
+                            <label for="que-faites">Que faites-vous lors de ces réveils ?</label>
+                            <input type="text" id="que-faites" placeholder="ex : Je le prends dans les bras…">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wiz-start-wrap">
+                    <button class="btn-wiz-start" onclick="startQuiz()">Commencer le questionnaire →</button>
+                    <p class="wiz-start-hint">22 questions · environ 3 minutes</p>
+                </div>
             </div>
         </div>
-        <div class="form-rangee">
-            <div class="form-groupe">
-                <label for="ddn">Date de naissance *</label>
-                <input type="date" id="ddn">
-            </div>
-            <div class="form-groupe">
-                <label for="sexe">Sexe *</label>
-                <select id="sexe">
-                    <option value="">-- Sélectionner --</option>
-                    <option value="Garçon">Garçon</option>
-                    <option value="Fille">Fille</option>
-                </select>
-            </div>
-            <div class="form-groupe">
-                <label for="taille">Taille</label>
-                <input type="text" id="taille" placeholder="ex : 90 cm">
-            </div>
-            <div class="form-groupe">
-                <label for="poids">Poids</label>
-                <input type="text" id="poids" placeholder="ex : 12 kg">
-            </div>
-        </div>
+
+        <!-- Les slides de questions et de résultats sont injectés par JS -->
+
     </div>
-
-    <!-- Habitudes de sommeil -->
-    <div class="horaires-section">
-        <h2>Habitudes de sommeil</h2>
-        <div class="horaires-grille">
-            <div class="entete-col"></div>
-            <div class="entete-col">En semaine</div>
-            <div class="entete-col">En week-end</div>
-
-            <div class="entete-ligne">Heure de coucher habituelle</div>
-            <input type="text" id="coucher-sem" placeholder="ex : 20h30">
-            <input type="text" id="coucher-we"  placeholder="ex : 21h00">
-
-            <div class="entete-ligne">Heure de lever matinal habituelle</div>
-            <input type="text" id="lever-sem" placeholder="ex : 7h00">
-            <input type="text" id="lever-we"  placeholder="ex : 8h00">
-
-            <div class="entete-ligne">Durée des siestes (journée)</div>
-            <input type="text" id="siestes-sem" placeholder="ex : 1h30">
-            <input type="text" id="siestes-we"  placeholder="ex : 1h00">
-
-            <div class="entete-ligne">Durée d'éveil nocturne</div>
-            <input type="text" id="eveil-sem" placeholder="ex : 30 min">
-            <input type="text" id="eveil-we"  placeholder="ex : 0">
-        </div>
-        <div class="reveils-ligne">
-            <div class="form-groupe">
-                <label for="nb-reveils">Nombre de réveils par nuit</label>
-                <input type="text" id="nb-reveils" placeholder="ex : 2">
-            </div>
-            <div class="form-groupe" style="flex:2;">
-                <label for="que-faites">Que faites-vous lors de ces réveils ?</label>
-                <input type="text" id="que-faites" placeholder="ex : Je le prends dans les bras, je lui donne le sein...">
-            </div>
-        </div>
-    </div>
-
-    <div id="questions-container"></div>
-
-    <div class="soumettre-zone">
-        <button onclick="calculer()" class="btn-calculer">Calculer les scores</button>
-    </div>
-
-    <div id="resultats" class="resultats-section" style="display:none;">
-        <h2>Résultats</h2>
-        <div id="resultats-contenu"></div>
-        <div class="resultats-actions">
-            <button onclick="genererPDF()" class="btn-pdf">Télécharger le PDF</button>
-            <a href="https://www.doctolib.fr/medecin-generaliste/vendeuvre-du-poitou/marine-aime" target="_blank" class="btn-rdv-res">Prendre rendez-vous</a>
-        </div>
-    </div>
-
 </div>
 
 <footer>
@@ -142,23 +148,23 @@
 <script>
 const FREQ = [
     { v: 1, l: 'Jamais' },
-    { v: 2, l: 'Rarement', s: '1-3×/mois' },
-    { v: 3, l: 'Parfois',  s: '1-2×/sem.' },
-    { v: 4, l: 'Souvent',  s: '3-5×/sem.' },
+    { v: 2, l: 'Rarement', s: '1–3×/mois' },
+    { v: 3, l: 'Parfois',  s: '1–2×/sem.' },
+    { v: 4, l: 'Souvent',  s: '3–5×/sem.' },
     { v: 5, l: 'Toujours', s: 'Tous les jours' }
 ];
 const HEURES = [
     { v: 1, l: 'Plus de 9h' },
-    { v: 2, l: '8h à 9h' },
-    { v: 3, l: '7h à 8h' },
-    { v: 4, l: '5h à 7h' },
+    { v: 2, l: 'Entre 8h et 9h' },
+    { v: 3, l: 'Entre 7h et 8h' },
+    { v: 4, l: 'Entre 5h et 7h' },
     { v: 5, l: 'Moins de 5h' }
 ];
 const DELAI = [
     { v: 1, l: 'Moins de 15 min' },
-    { v: 2, l: '15-30 min' },
-    { v: 3, l: '30-45 min' },
-    { v: 4, l: '45-60 min' },
+    { v: 2, l: '15 à 30 min' },
+    { v: 3, l: '30 à 45 min' },
+    { v: 4, l: '45 à 60 min' },
     { v: 5, l: 'Plus de 60 min' }
 ];
 
@@ -172,7 +178,7 @@ const QUESTIONS = [
     { n:  7, t: "L'enfant transpire excessivement à l'endormissement", o: FREQ },
     { n:  8, t: "L'enfant se réveille plus de 2 fois par nuit", o: FREQ },
     { n:  9, t: "L'enfant a des difficultés à s'endormir à nouveau après s'être réveillé dans la nuit", o: FREQ },
-    { n: 10, t: "Dans son sommeil, l'enfant a des mouvements brusques ou des secousses des jambes ou il change souvent de position durant la nuit ou encore il jette les couvertures au pied de son lit", o: FREQ },
+    { n: 10, t: "Dans son sommeil, l'enfant a des mouvements brusques ou des secousses des jambes, ou il change souvent de position durant la nuit, ou encore il jette les couvertures au pied de son lit", o: FREQ },
     { n: 11, t: "L'enfant a des difficultés à respirer durant la nuit", o: FREQ },
     { n: 12, t: "L'enfant fait des pauses respiratoires ou cherche sa respiration pendant son sommeil", o: FREQ },
     { n: 13, t: "L'enfant ronfle", o: FREQ },
@@ -188,66 +194,161 @@ const QUESTIONS = [
 ];
 
 const SOUS_SCORES = [
-    { cle: 'A', label: 'A. Insomnies',                                          qs: [1,2,3,4,5,8,9,10],  max: 40, seuil: 16, alerte: true },
-    { cle: 'B', label: 'B. Hyperhydrose',                                        qs: [7,14],               max: 10, seuil: 4,  alerte: false },
-    { cle: 'C', label: 'C. Problèmes respiratoires',                             qs: [11,12,13],           max: 15, seuil: 4,  alerte: true },
-    { cle: 'D', label: 'D. Parasomnies',                                         qs: [6,15,16,17],         max: 20, seuil: 7,  alerte: false },
-    { cle: 'E', label: 'E. Sommeil non réparateur et Somnolence diurne excessive', qs: [18,19,20,21,22],  max: 25, seuil: 7,  alerte: true }
+    { cle: 'A', label: 'A. Insomnies',                                              qs: [1,2,3,4,5,8,9,10], max: 40, seuil: 16, alerte: true },
+    { cle: 'B', label: 'B. Hyperhydrose',                                            qs: [7,14],              max: 10, seuil: 4,  alerte: false },
+    { cle: 'C', label: 'C. Problèmes respiratoires',                                 qs: [11,12,13],          max: 15, seuil: 4,  alerte: true },
+    { cle: 'D', label: 'D. Parasomnies',                                             qs: [6,15,16,17],        max: 20, seuil: 7,  alerte: false },
+    { cle: 'E', label: 'E. Sommeil non réparateur et Somnolence diurne excessive',   qs: [18,19,20,21,22],   max: 25, seuil: 7,  alerte: true }
 ];
 const TOTAL_SEUIL = 37;
 const TOTAL_MAX   = 110;
+const RESULTS_IDX = 1 + QUESTIONS.length; // slide 0 = patient, slides 1..22 = questions, 23 = résultats
 
 let RESULTATS = null;
+let currentSlide = 0;
+const reponses = {};
 
-function renderQuestions() {
-    const c = document.getElementById('questions-container');
-    c.innerHTML = QUESTIONS.map(q => `
-        <div class="question-bloc" id="bloc-q${q.n}">
-            <div class="question-texte"><span class="q-num">${q.n}.</span> ${q.t}</div>
-            <div class="choix">
-                ${q.o.map(o => `
-                    <label class="choix-option">
-                        <input type="radio" name="q${q.n}" value="${o.v}">
-                        <span class="choix-label">
-                            <span class="choix-val">${o.v}</span>
-                            <span>${o.l}</span>
-                            ${o.s ? `<span class="choix-sub">${o.s}</span>` : ''}
-                        </span>
-                    </label>
-                `).join('')}
-            </div>
+/* ── Rendu des slides ── */
+function renderWizard() {
+    const track = document.getElementById('wiz-track');
+
+    QUESTIONS.forEach((q, idx) => {
+        const prevIdx = idx;          // glissement vers slide précédente (patient = 0, q1 = 1…)
+        const nextIdx = idx + 2;      // glissement vers slide suivante
+        const isLast  = idx === QUESTIONS.length - 1;
+
+        const div = document.createElement('div');
+        div.className = 'wiz-slide';
+        div.id = `wiz-sq${q.n}`;
+        div.innerHTML = `
+            <div class="wiz-q-wrap">
+                <div class="wiz-q-badge">🌙 Question ${q.n} sur ${QUESTIONS.length}</div>
+                <p class="wiz-q-text">${q.t}</p>
+                <div class="wiz-q-opts" id="opts-${q.n}">
+                    ${q.o.map(o => `
+                        <button class="opt-btn" data-v="${o.v}"
+                                onclick="selectOpt(this, ${q.n}, ${o.v}, ${nextIdx})">
+                            <span class="opt-val">${o.v}</span>
+                            <div class="opt-body">
+                                <span class="opt-label">${o.l}</span>
+                                ${o.s ? `<span class="opt-sub">${o.s}</span>` : ''}
+                            </div>
+                        </button>
+                    `).join('')}
+                </div>
+                <div class="wiz-q-nav">
+                    <button class="btn-wiz-prev" onclick="goToSlide(${prevIdx})">← Précédent</button>
+                    <button class="btn-wiz-cont" id="btn-cont-${q.n}"
+                            onclick="goToSlide(${nextIdx})">
+                        ${isLast ? 'Voir les résultats →' : 'Continuer →'}
+                    </button>
+                </div>
+            </div>`;
+        track.appendChild(div);
+    });
+
+    // Slide résultats
+    const res = document.createElement('div');
+    res.className = 'wiz-slide';
+    res.id = 'wiz-s-results';
+    res.innerHTML = `
+        <div class="quest-entete">
+            <div class="quest-entete-emoji">📊</div>
+            <h1 style="font-size:1.6rem;">Résultats du questionnaire</h1>
+            <p>SDSC — Enfant de 6 mois à 4 ans</p>
         </div>
-    `).join('');
+        <div class="wiz-results-wrap">
+            <div id="resultats-contenu"></div>
+            <div class="resultats-actions">
+                <button onclick="genererPDF()" class="btn-pdf">📄 Télécharger le PDF</button>
+                <a href="https://www.doctolib.fr/medecin-generaliste/vendeuvre-du-poitou/marine-aime"
+                   target="_blank" class="btn-rdv-res">📅 Prendre rendez-vous</a>
+            </div>
+            <div style="text-align:center;margin-top:1.5rem;">
+                <button class="btn-wiz-prev" onclick="goToSlide(${QUESTIONS.length})">← Modifier mes réponses</button>
+            </div>
+        </div>`;
+    track.appendChild(res);
 }
 
-function calculer() {
+/* ── Navigation ── */
+function goToSlide(n) {
+    if (n < 0 || n > RESULTS_IDX) return;
+    currentSlide = n;
+    document.getElementById('wiz-track').style.transform = `translateX(-${n * 100}%)`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateProgress(n);
+    restoreSlide(n);
+    if (n === RESULTS_IDX) calculerEtAfficher();
+}
+
+function restoreSlide(n) {
+    const qIdx = n - 1;
+    if (qIdx < 0 || qIdx >= QUESTIONS.length) return;
+    const q = QUESTIONS[qIdx];
+    const val = reponses[q.n];
+
+    document.querySelectorAll(`#opts-${q.n} .opt-btn`).forEach(btn => {
+        const v = parseInt(btn.dataset.v);
+        btn.classList.remove('opt-selected', 'opt-inactive');
+        if (val !== undefined && v === val) btn.classList.add('opt-selected');
+    });
+
+    const contBtn = document.getElementById(`btn-cont-${q.n}`);
+    if (contBtn) contBtn.style.display = val !== undefined ? '' : 'none';
+}
+
+function updateProgress(n) {
+    const wrap = document.getElementById('wiz-progress');
+    const qIdx = n - 1;
+    if (qIdx >= 0 && qIdx < QUESTIONS.length) {
+        wrap.classList.add('visible');
+        const answered = qIdx + (reponses[QUESTIONS[qIdx].n] !== undefined ? 1 : 0);
+        const pct = (answered / QUESTIONS.length) * 100;
+        document.getElementById('wiz-fill').style.width = pct + '%';
+        document.getElementById('wiz-label-q').textContent = `Question ${qIdx + 1} / ${QUESTIONS.length}`;
+        document.getElementById('wiz-label-pct').textContent = Math.round(pct) + '%';
+    } else {
+        wrap.classList.remove('visible');
+    }
+}
+
+function selectOpt(btn, qNum, val, nextSlide) {
+    reponses[qNum] = val;
+    const allBtns = btn.closest('.wiz-q-opts').querySelectorAll('.opt-btn');
+    allBtns.forEach(b => {
+        b.classList.remove('opt-selected', 'opt-inactive');
+        b.classList.add(b === btn ? 'opt-selected' : 'opt-inactive');
+    });
+    const contBtn = document.getElementById(`btn-cont-${qNum}`);
+    if (contBtn) contBtn.style.display = '';
+    setTimeout(() => goToSlide(nextSlide), 380);
+}
+
+function startQuiz() {
+    const prenom = document.getElementById('prenom').value.trim();
+    const nom    = document.getElementById('nom').value.trim();
+    const ddn    = document.getElementById('ddn').value;
+    const sexe   = document.getElementById('sexe').value;
+    if (!prenom || !nom || !ddn || !sexe) {
+        alert("Merci de renseigner le prénom, le nom, la date de naissance et le sexe de l'enfant.");
+        return;
+    }
+    goToSlide(1);
+}
+
+/* ── Calcul ── */
+function calculerEtAfficher() {
     const prenom = document.getElementById('prenom').value.trim();
     const nom    = document.getElementById('nom').value.trim();
     const ddn    = document.getElementById('ddn').value;
     const sexe   = document.getElementById('sexe').value;
 
-    if (!prenom || !nom || !ddn || !sexe) {
-        alert('Merci de renseigner le prénom, le nom, la date de naissance et le sexe de l\'enfant.');
-        return;
-    }
-
-    const reponses = {};
-    const manquantes = [];
-    QUESTIONS.forEach(q => {
-        const sel = document.querySelector(`input[name="q${q.n}"]:checked`);
-        const bloc = document.getElementById(`bloc-q${q.n}`);
-        if (sel) {
-            reponses[q.n] = parseInt(sel.value);
-            bloc.classList.remove('non-repondu');
-        } else {
-            manquantes.push(q.n);
-            bloc.classList.add('non-repondu');
-        }
-    });
-
+    // Vérifier toutes les questions répondues
+    const manquantes = QUESTIONS.filter(q => reponses[q.n] === undefined);
     if (manquantes.length > 0) {
-        alert(`Merci de répondre à toutes les questions. Questions sans réponse : ${manquantes.join(', ')}`);
-        document.getElementById(`bloc-q${manquantes[0]}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const firstIdx = QUESTIONS.findIndex(q => q.n === manquantes[0].n);
+        goToSlide(firstIdx + 1);
         return;
     }
 
@@ -273,7 +374,7 @@ function calculer() {
             nbReveils:  document.getElementById('nb-reveils').value,
             queFaites:  document.getElementById('que-faites').value
         },
-        reponses, ss, total,
+        reponses: { ...reponses }, ss, total,
         total_depasse: total > TOTAL_SEUIL,
         date: new Date().toLocaleDateString('fr-FR')
     };
@@ -290,8 +391,7 @@ function afficher() {
             <span>Score total</span>
             <span>${total} / ${TOTAL_MAX} — Seuil : ${TOTAL_SEUIL}</span>
             <span class="badge ${total_depasse ? 'badge-alerte' : 'badge-ok'}">${total_depasse ? 'Au-dessus du seuil' : 'Dans la norme'}</span>
-        </div>
-    `;
+        </div>`;
 
     ss.forEach(s => {
         const cls = s.depasse ? (s.alerte ? 'alerte' : 'attention') : '';
@@ -316,10 +416,9 @@ function afficher() {
     </div>`;
 
     document.getElementById('resultats-contenu').innerHTML = html;
-    document.getElementById('resultats').style.display = 'block';
-    document.getElementById('resultats').scrollIntoView({ behavior: 'smooth' });
 }
 
+/* ── PDF ── */
 function genererPDF() {
     if (!RESULTATS) return;
     const { jsPDF } = window.jspdf;
@@ -343,19 +442,9 @@ function genererPDF() {
     const BLANC         = [255, 255, 255];
     const BORDURE       = [237, 232, 224];
 
-    // ── kept for compat (unused) ──
-    const BLEU   = [26, 82, 118];
-    const BCLAIR = [214, 234, 248];
-    const VERT   = [30, 132, 73];
-    const ROUGE  = [192, 57, 43];
-    const ORANGE = [211, 84, 0];
-    const GRIS   = [130, 130, 130];
-
     let y = 0;
 
     // ════ PAGE 1 : RÉSUMÉ ════
-
-    // En-tête corail
     doc.setFillColor(...CORAIL);
     doc.rect(0, 0, 210, 28, 'F');
     doc.setFillColor(...CORAIL2);
@@ -368,7 +457,6 @@ function genererPDF() {
     doc.text('Pôle Santé, 36 rue du Moulin des Justices, 17138 Puilboreau  |  09 73 03 05 76', 105, 23, { align: 'center' });
     y = 34;
 
-    // Titre
     doc.setFillColor(...CORAIL_CLAIR);
     doc.roundedRect(15, y, 180, 10, 2, 2, 'F');
     doc.setTextColor(...CORAIL); doc.setFontSize(10); doc.setFont('helvetica', 'bold');
@@ -377,7 +465,6 @@ function genererPDF() {
     doc.text('Complété le : ' + date, 193, y + 7, { align: 'right' });
     y += 15;
 
-    // Patient
     doc.setFillColor(...CREME);
     doc.roundedRect(15, y, 180, 18, 2, 2, 'F');
     doc.setTextColor(...CORAIL); doc.setFontSize(8.5); doc.setFont('helvetica', 'bold');
@@ -390,7 +477,6 @@ function genererPDF() {
     doc.text(infoLigne, 105, y + 13, { align: 'center' });
     y += 23;
 
-    // Habitudes de sommeil
     doc.setFillColor(...CREME);
     doc.roundedRect(15, y, 180, 38, 2, 2, 'F');
     doc.setTextColor(...CORAIL); doc.setFontSize(8.5); doc.setFont('helvetica', 'bold');
@@ -416,7 +502,6 @@ function genererPDF() {
     }
     y += 44;
 
-    // Score total
     const sCol = total_depasse ? ROUGE : VERT;
     doc.setFillColor(...sCol);
     doc.roundedRect(15, y, 180, 10, 2, 2, 'F');
@@ -426,7 +511,6 @@ function genererPDF() {
     doc.text(total_depasse ? '▲ Au-dessus du seuil' : '✓ Dans la norme', 193, y + 7, { align: 'right' });
     y += 13;
 
-    // Sous-scores
     ss.forEach((s, i) => {
         doc.setFillColor(...(i % 2 === 0 ? CREME : BLANC));
         doc.rect(15, y, 180, 8, 'F');
@@ -436,7 +520,7 @@ function genererPDF() {
         doc.text(s.label, 21, y + 5.5);
         doc.setTextColor(...TEXTE2); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
         doc.text(s.score + ' / ' + s.max, 130, y + 5.5); doc.text('seuil ' + s.seuil, 152, y + 5.5);
-        const bc = s.depasse ? (s.alerte ? ROUGE : ORANGE) : VERT;
+        const bc  = s.depasse ? (s.alerte ? ROUGE  : ORANGE)       : VERT;
         const bcc = s.depasse ? (s.alerte ? ROUGE_CLAIR : ORANGE_CLAIR) : VERT_CLAIR;
         doc.setFillColor(...bcc); doc.roundedRect(172, y + 1, 20, 6, 1.5, 1.5, 'F');
         doc.setTextColor(...bc); doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5);
@@ -447,7 +531,6 @@ function genererPDF() {
     doc.rect(15, y - ss.length * 8 - 13, 180, ss.length * 8 + 13, 'S');
     y += 5;
 
-    // Alertes
     const alertes = ss.filter(s => s.depasse && s.alerte);
     if (alertes.length > 0) {
         doc.setFillColor(254, 249, 231); doc.setDrawColor(245, 200, 66); doc.setLineWidth(0.4);
@@ -459,19 +542,16 @@ function genererPDF() {
         y += 17;
     }
 
-    // Disclaimer
     doc.setFillColor(...LAVANDE_CLAIR);
     doc.roundedRect(15, y, 180, 10, 2, 2, 'F');
     doc.setTextColor(...LAVANDE); doc.setFontSize(7); doc.setFont('helvetica', 'italic');
     doc.text("Ces scores ne remplacent pas le diagnostic d'un spécialiste. Ce questionnaire prépare la consultation avec le Dr Marine AIME.", 105, y + 7, { align: 'center', maxWidth: 170 });
     y += 14;
 
-    // Références
     doc.setTextColor(...TEXTE2); doc.setFontSize(6.5); doc.setFont('helvetica', 'normal');
     doc.text('Réf. : Bruni O et al. SDSC. J Sleep Res. 1996. — Lecuelle F et al. Sleep Med. 2020;67:56-65.', 15, y);
     y += 8;
 
-    // Signature
     doc.setTextColor(...TEXTE); doc.setFontSize(8); doc.setFont('helvetica', 'normal');
     doc.text('Signature / Cachet du médecin :', 15, y);
     doc.setDrawColor(...BORDURE); doc.setLineWidth(0.4);
@@ -500,9 +580,9 @@ function genererPDF() {
         const val = reponses[q.n];
         const opt = q.o.find(o => o.v === val);
         const repLabel = opt ? opt.l : '—';
-        const repSub = (opt && opt.s) ? opt.s : '';
-        const lines = doc.splitTextToSize(q.t, 128);
-        const blockH = Math.max(9, lines.length * 4 + 4);
+        const repSub   = (opt && opt.s) ? opt.s : '';
+        const lines    = doc.splitTextToSize(q.t, 128);
+        const blockH   = Math.max(9, lines.length * 4 + 4);
 
         if (y + blockH > 282) {
             doc.addPage(); y = 15;
@@ -514,15 +594,13 @@ function genererPDF() {
 
         doc.setFillColor(...(idx % 2 === 0 ? CREME : BLANC));
         doc.rect(15, y, 180, blockH, 'F');
-
         doc.setTextColor(...CORAIL); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
         doc.text(String(q.n) + '.', 20, y + blockH / 2 + 1.5, { align: 'right' });
-
         doc.setTextColor(...TEXTE); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
         const textY = y + (blockH - lines.length * 4) / 2 + 4;
         doc.text(lines, 23, textY);
 
-        const bc = val >= 4 ? ROUGE : (val === 3 ? ORANGE : VERT);
+        const bc  = val >= 4 ? ROUGE  : (val === 3 ? ORANGE  : VERT);
         const bcc = val >= 4 ? ROUGE_CLAIR : (val === 3 ? ORANGE_CLAIR : VERT_CLAIR);
         doc.setFillColor(...bcc);
         doc.roundedRect(153, y + 1, 39, blockH - 2, 1.5, 1.5, 'F');
@@ -547,7 +625,7 @@ function genererPDF() {
     doc.save('SDSC_6mois-4ans_' + patient.prenom + '_' + patient.nom + '_' + date.replace(/\//g, '-') + '.pdf');
 }
 
-renderQuestions();
+document.addEventListener('DOMContentLoaded', renderWizard);
 </script>
 </body>
 </html>
