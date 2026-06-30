@@ -1564,3 +1564,222 @@ footer strong { color: rgba(255, 255, 255, .8); }
     border-color: var(--corail);
     background: var(--blanc);
 }
+
+/* ══════════════════════════════════════════════
+   PARCOURS GUIDÉ
+═══════════════════════════════════════════════ */
+
+/* Indicateur d'étapes */
+.parcours-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
+    margin: 0 0 1.5rem;
+    flex-wrap: wrap;
+}
+.pstep {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .15rem;
+}
+.pstep-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bordure);
+    color: var(--texte2);
+    font-size: .8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pstep-label {
+    font-size: .65rem;
+    color: var(--texte2);
+    font-weight: 600;
+    white-space: nowrap;
+}
+.pstep.active .pstep-num {
+    background: var(--corail);
+    color: #fff;
+}
+.pstep.active .pstep-label { color: var(--corail); }
+.pstep.done .pstep-num {
+    background: var(--vert);
+    color: #fff;
+    font-size: .75rem;
+}
+.pstep.done .pstep-label { color: var(--vert); }
+.pstep-line {
+    width: 32px;
+    height: 2px;
+    background: var(--bordure);
+    margin-bottom: 14px;
+    flex-shrink: 0;
+}
+.pstep-line.done { background: var(--vert); }
+
+/* Badge âge calculé */
+.age-badge-wrap {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    background: var(--corail-clair);
+    border: 1.5px solid var(--corail2);
+    border-radius: 10px;
+    padding: .6rem 1rem;
+    margin-top: 1rem;
+}
+.age-badge-age {
+    font-weight: 700;
+    color: var(--corail);
+    font-size: .95rem;
+}
+.age-badge-qs {
+    font-size: .85rem;
+    color: var(--texte2);
+    font-weight: 600;
+}
+
+/* Gate suivi médical */
+.gate-section {
+    background: var(--lavande-clair);
+    border: 1.5px solid var(--lavande2);
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: .9rem;
+    line-height: 1.7;
+}
+.gate-section p { margin-bottom: .3rem; }
+.gate-buttons {
+    display: flex;
+    gap: .75rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+.btn-gate-oui {
+    background: var(--corail);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: .6rem 1.4rem;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+}
+.btn-gate-oui:hover { background: #d06545; }
+.btn-gate-non {
+    background: var(--blanc);
+    color: var(--texte2);
+    border: 2px solid var(--bordure);
+    border-radius: 30px;
+    padding: .6rem 1.4rem;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color .2s;
+}
+.btn-gate-non:hover { border-color: var(--texte2); }
+
+/* Agenda du sommeil */
+.agenda-card {
+    background: var(--blanc);
+    border: 1.5px solid var(--bordure);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    margin: 1rem 0;
+    font-size: .9rem;
+    line-height: 1.7;
+}
+.btn-agenda-dl {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--lavande);
+    color: #fff;
+    border-radius: 30px;
+    padding: .65rem 1.4rem;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin: .8rem 0;
+    transition: background .2s;
+}
+.btn-agenda-dl:hover { background: #7a6ba8; }
+.agenda-note {
+    font-size: .8rem;
+    color: var(--texte2);
+    margin-top: .6rem;
+    font-style: italic;
+}
+
+/* Slide terminal */
+.terminal-card {
+    background: var(--vert-clair);
+    border: 1.5px solid var(--vert);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    font-size: .95rem;
+    line-height: 1.7;
+    margin: 1rem 0;
+}
+
+/* Hero page d'accueil — CTA unique */
+.hero-cta-unique {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.btn-hero-start {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--corail);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2.4rem;
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(232,130,90,.35);
+    transition: background .2s, transform .15s;
+}
+.btn-hero-start:hover {
+    background: #d06545;
+    transform: translateY(-2px);
+}
+.hero-cta-hint {
+    font-size: .85rem;
+    color: var(--texte2);
+    text-align: center;
+}
+.hero-cta-secondaire {
+    font-size: .82rem;
+    color: var(--texte2);
+    text-align: center;
+}
+.hero-cta-secondaire a {
+    color: var(--texte2);
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .parcours-steps { gap: .1rem; }
+    .pstep-line { width: 16px; }
+    .pstep-label { display: none; }
+    .gate-buttons { flex-direction: column; }
+    .btn-gate-oui, .btn-gate-non { width: 100%; text-align: center; }
+}

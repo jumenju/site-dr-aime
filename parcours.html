@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Préparer ma consultation — Dr Marine AIME</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo">
+            <div class="logo-badge">🌙</div>
+            <div>
+                <div class="logo-name">Dr Marine AIME</div>
+                <div class="logo-sub">Médecin Généraliste</div>
+            </div>
+        </div>
+        <button class="menu-burger" id="menu-burger" aria-label="Menu de navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-liens" id="nav-liens">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="parcours.html" class="actif">Questionnaire</a></li>
+            <li><a href="ressources.html">Ressources</a></li>
+            <li><a href="https://www.doctolib.fr/medecin-generaliste/vendeuvre-du-poitou/marine-aime" target="_blank" class="nav-rdv">Prendre RDV</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="wiz-progress" id="wiz-progress">
+    <div class="wiz-progress-bar">
+        <div class="wiz-progress-fill" id="wiz-fill"></div>
+    </div>
+    <div class="wiz-progress-meta">
+        <span id="wiz-label-q">Question 1 / 22</span>
+        <span id="wiz-label-pct">0%</span>
+    </div>
+</div>
+
+<div class="wiz-outer">
+    <div class="wiz-track" id="wiz-track">
+
+        <!-- SLIDE 0 : Votre enfant -->
+        <div class="wiz-slide" id="wiz-s-infos">
+            <div class="quest-entete">
+                <div class="quest-entete-emoji">🌙</div>
+                <h1>Préparer ma consultation</h1>
+                <p>Questionnaire de dépistage des troubles du sommeil — SDSC</p>
+                <a href="index.html" class="quest-retour">← Retour à l'accueil</a>
+            </div>
+            <div class="quest-container">
+                <div class="info-box">
+                    Ce parcours vous guide en quelques minutes pour préparer votre visite avec le Dr Marine AIME. Basez-vous sur les observations des <strong>six derniers mois</strong>.
+                </div>
+
+                <div class="parcours-steps">
+                    <div class="pstep active"><span class="pstep-num">1</span><span class="pstep-label">Votre enfant</span></div>
+                    <div class="pstep-line"></div>
+                    <div class="pstep"><span class="pstep-num">2</span><span class="pstep-label">Suivi</span></div>
+                    <div class="pstep-line"></div>
+                    <div class="pstep"><span class="pstep-num">3</span><span class="pstep-label">Agenda</span></div>
+                    <div class="pstep-line"></div>
+                    <div class="pstep"><span class="pstep-num">4</span><span class="pstep-label">Questionnaire</span></div>
+                </div>
+
+                <div class="patient-section">
+                    <h2>Informations sur l'enfant</h2>
+                    <div class="form-rangee">
+                        <div class="form-groupe">
+                            <label for="prenom">Prénom *</label>
+                            <input type="text" id="prenom" placeholder="Prénom de l'enfant">
+                        </div>
+                        <div class="form-groupe">
+                            <label for="nom">Nom *</label>
+                            <input type="text" id="nom" placeholder="Nom de l'enfant">
+                        </div>
+                    </div>
+                    <div class="form-rangee">
+                        <div class="form-groupe">
+                            <label for="ddn">Date de naissance *</label>
+                            <input type="date" id="ddn" onchange="onDdnChange()">
+                        </div>
+                        <div class="form-groupe">
+                            <label for="sexe">Sexe *</label>
+                            <select id="sexe">
+                                <option value="">-- Sélectionner --</option>
+                                <option value="Garçon">Garçon</option>
+                                <option value="Fille">Fille</option>
+                            </select>
+                        </div>
+                        <div class="form-groupe">
+                            <label for="taille">Taille</label>
+                            <input type="text" id="taille" placeholder="ex : 90 cm">
+                        </div>
+                        <div class="form-groupe">
+                            <label for="poids">Poids</label>
+                            <input type="text" id="poids" placeholder="ex : 12 kg">
+                        </div>
+                    </div>
+
+                    <div id="age-display" class="age-badge-wrap" style="display:none;">
+                        <span class="age-badge-age" id="age-text"></span>
+                        <span class="age-badge-qs" id="questionnaire-badge"></span>
+                    </div>
+                </div>
+
+                <div class="wiz-start-wrap">
+                    <button class="btn-wiz-start" onclick="validerInfos()">Continuer →</button>
+                    <p class="wiz-start-hint">Étape 1 sur 4 · environ 5 minutes au total</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 1 : Suivi médical -->
+        <div class="wiz-slide" id="wiz-s-suivi">
+            <div class="wiz-q-wrap">
+                <div class="parcours-steps">
+                    <div class="pstep done"><span class="pstep-num">✓</span><span class="pstep-label">Votre enfant</span></div>
+                    <div class="pstep-line done"></div>
+                    <div class="pstep active"><span class="pstep-num">2</span><span class="pstep-label">Suivi</span></div>
+                    <div class="pstep-line"></div>
+                    <div class="pstep"><span class="pstep-num">3</span><span class="pstep-label">Agenda</span></div>
+                    <div class="pstep-line"></div>
+                    <div class="pstep"><span class="pstep-num">4</span><span class="pstep-label">Questionnaire</span></div>
+                </div>
+                <div class="wiz-q-badge">🩺 Étape 2 · Suivi médical</div>
+                <p class="wiz-q-text">Votre enfant est-il actuellement suivi par un spécialiste du sommeil ?</p>
+                <div class="suivi-radios" id="suivi-radios-p">
+                    <label><input type="radio" name="suivi-spec" value="non" onchange="onSuiviChange()"> Non</label>
+                    <label><input type="radio" name="suivi-spec" value="oui" onchange="onSuiviChange()"> Oui, il est suivi</label>
+                    <label><input type="radio" name="suivi-spec" value="demarche" onchange="onSuiviChange()"> Démarche en cours</label>
+                </div>
+
+                <div id="suivi-gate" class="gate-section" style="display:none;">
+                    <p>Votre enfant est déjà accompagné, c'est une bonne nouvelle.</p>
+                    <p>Le questionnaire SDSC peut rester utile pour <strong>préparer le prochain rendez-vous spécialisé</strong> ou disposer d'une mesure de référence.</p>
+                    <p style="margin-top:.4rem;"><strong>Souhaitez-vous quand même le remplir ?</strong></p>
+                    <div class="gate-buttons">
+                        <button class="btn-gate-oui" onclick="goToSlide(2)">Oui, je remplis le questionnaire</button>
+                        <button class="btn-gate-non" onclick="goToSlide(3)">Non, ce n'est pas nécessaire</button>
+                    </div>
+                </div>
+
+                <div id="suivi-continue" class="wiz-q-nav" style="display:none;">
+                    <button class="btn-wiz-prev" onclick="goToSlide(0)">← Précédent</button>
+                    <button class="btn-wiz-cont" style="display:inline-block" onclick="goToSlide(2)">Continuer →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2 : Agenda du sommeil -->
+        <div class="wiz-slide" id="wiz-s-agenda">
+            <div class="wiz-q-wrap">
+                <div class="parcours-steps">
+                    <div class="pstep done"><span class="pstep-num">✓</span><span class="pstep-label">Votre enfant</span></div>
+                    <div class="pstep-line done"></div>
+                    <div class="pstep done"><span class="pstep-num">✓</span><span class="pstep-label">Suivi</span></div>
+                    <div class="pstep-line done"></div>
+                    <div class="pstep active"><span class="pstep-num">3</span><span class="pstep-label">Agenda</span></div>
+                    <div class="pstep-line"></div>
+                    <div class="pstep"><span class="pstep-num">4</span><span class="pstep-label">Questionnaire</span></div>
+                </div>
+                <div class="wiz-q-badge">📋 Étape 3 · Agenda du sommeil</div>
+                <p class="wiz-q-text">Un outil précieux à tenir avant votre consultation</p>
+                <div class="agenda-card">
+                    <p>L'<strong>agenda du sommeil</strong> se remplit chaque matin en 1 minute. Tenu pendant <strong>2 semaines</strong>, il donne au Dr AIME une image précise des rythmes de votre enfant : heures de coucher et de lever, réveils nocturnes, siestes, humeur au réveil.</p>
+                    <p style="margin:.7rem 0;">C'est l'un des outils les plus utiles pour une consultation ciblée.</p>
+                    <!-- Remplacer agenda-sommeil.pdf par le fichier fourni par le Dr AIME -->
+                    <a href="agenda-sommeil.pdf" download class="btn-agenda-dl">⬇ Télécharger l'agenda du sommeil (PDF)</a>
+                    <p class="agenda-note">Si vous avez déjà un agenda rempli ou souhaitez le compléter ultérieurement, continuez directement vers le questionnaire.</p>
+                </div>
+                <div class="wiz-q-nav">
+                    <button class="btn-wiz-prev" onclick="goToSlide(1)">← Précédent</button>
+                    <button class="btn-wiz-cont" style="display:inline-block" onclick="lancerQuestionnaire()">Continuer vers le questionnaire →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3 : Terminal (refus du questionnaire) -->
+        <div class="wiz-slide" id="wiz-s-terminal">
+            <div class="wiz-q-wrap">
+                <div class="wiz-q-badge">✅ Suivi spécialisé en cours</div>
+                <div class="terminal-card">
+                    <p>Votre enfant bénéficiant déjà d'un accompagnement spécialisé, le questionnaire SDSC n'est pas indispensable à ce stade.</p>
+                    <p style="margin-top:.8rem;">N'hésitez pas à contacter le cabinet si vous souhaitez un suivi complémentaire ou un avis du Dr Marine AIME.</p>
+                    <div style="margin-top:1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.8rem;">
+                        <a href="https://www.doctolib.fr/medecin-generaliste/vendeuvre-du-poitou/marine-aime" target="_blank" class="btn-rdv-res">📅 Prendre rendez-vous</a>
+                        <a href="index.html" style="color:var(--texte2);font-size:.9rem;">← Retour à l'accueil</a>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:1rem;">
+                    <button class="btn-wiz-prev" onclick="goToSlide(1)">← Modifier ma réponse</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDES 4+ : injectés dynamiquement par lancerQuestionnaire() -->
+
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p><strong>Dr Marine AIME</strong> — Médecin Généraliste</p>
+        <p>Pôle Santé, 36 rue du Moulin des Justices, 17138 Puilboreau &nbsp;|&nbsp; 09 73 03 05 76</p>
+        <p class="footer-disclaimer">Ces questionnaires ne remplacent pas un avis médical. Ils sont destinés à préparer votre consultation.</p>
+        <p class="footer-legal"><a href="cgu.html">Conditions générales d'utilisation</a></p>
+    </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════
+   ÉCHELLES DE FRÉQUENCE
+═══════════════════════════════════════════════ */
+const FREQ = [
+    { v: 1, l: 'Jamais' },
+    { v: 2, l: 'Rarement', s: '1–3×/mois' },
+    { v: 3, l: 'Parfois',  s: '1–2×/sem.' },
+    { v: 4, l: 'Souvent',  s: '3–5×/sem.' },
+    { v: 5, l: 'Toujours', s: 'Tous les jours' }
+];
+const HEURES = [
+    { v: 1, l: 'Plus de 9h' },
+    { v: 2, l: 'Entre 8h et 9h' },
+    { v: 3, l: 'Entre 7h et 8h' },
+    { v: 4, l: 'Entre 5h et 7h' },
+    { v: 5, l: 'Moins de 5h' }
+];
+const DELAI = [
+    { v: 1, l: 'Moins de 15 min' },
+    { v: 2, l: '15 à 30 min' },
+    { v: 3, l: '30 à 45 min' },
+    { v: 4, l: '45 à 60 min' },
+    { v: 5, l: 'Plus de 60 min' }
+];
+
+/* ══════════════════════════════════════════════
+   QUESTIONNAIRE 6 MOIS – 4 ANS (SDSC Lecuelle 2020)
+═══════════════════════════════════════════════ */
+const QUESTIONS_PETIT = [
+    { n:  1, t: "Combien d'heures l'enfant dort-il la plupart des nuits ?", o: HEURES },
+    { n:  2, t: "Combien de temps après sa mise au lit l'enfant met-il habituellement pour s'endormir ?", o: DELAI },
+    { n:  3, t: "L'enfant va au lit avec réticence", o: FREQ },
+    { n:  4, t: "L'enfant a des difficultés à s'endormir", o: FREQ },
+    { n:  5, t: "L'enfant ressent de l'anxiété ou des peurs au moment de s'endormir", o: FREQ },
+    { n:  6, t: "Lorsque l'enfant s'endort, il semble vivre ses rêves", o: FREQ },
+    { n:  7, t: "L'enfant transpire excessivement à l'endormissement", o: FREQ },
+    { n:  8, t: "L'enfant se réveille plus de 2 fois par nuit", o: FREQ },
+    { n:  9, t: "L'enfant a des difficultés à s'endormir à nouveau après s'être réveillé dans la nuit", o: FREQ },
+    { n: 10, t: "Dans son sommeil, l'enfant a des mouvements brusques ou des secousses des jambes, ou il change souvent de position durant la nuit, ou encore il jette les couvertures au pied de son lit", o: FREQ },
+    { n: 11, t: "L'enfant a des difficultés à respirer durant la nuit", o: FREQ },
+    { n: 12, t: "L'enfant fait des pauses respiratoires ou cherche sa respiration pendant son sommeil", o: FREQ },
+    { n: 13, t: "L'enfant ronfle", o: FREQ },
+    { n: 14, t: "L'enfant transpire excessivement pendant la nuit", o: FREQ },
+    { n: 15, t: "Vous avez déjà entendu l'enfant parler dans son sommeil", o: FREQ },
+    { n: 16, t: "L'enfant se réveille en hurlant ou est confus au point qu'il est impossible de l'approcher, mais il n'a aucun souvenir de ces événements le matin suivant", o: FREQ },
+    { n: 17, t: "L'enfant fait des cauchemars dont il ne se rappelle pas le matin venu", o: FREQ },
+    { n: 18, t: "L'enfant est difficile à réveiller le matin", o: FREQ },
+    { n: 19, t: "L'enfant se réveille le matin en se sentant fatigué", o: FREQ },
+    { n: 20, t: "L'enfant se sent incapable de bouger quand il se réveille le matin", o: FREQ },
+    { n: 21, t: "L'enfant est somnolent durant la journée", o: FREQ },
+    { n: 22, t: "L'enfant s'endort brutalement, de façon inattendue, à l'école ou lors de ses activités", o: FREQ }
+];
+const SOUS_SCORES_PETIT = [
+    { cle: 'A', label: 'A. Insomnies',                                            qs: [1,2,3,4,5,8,9,10], max: 40, seuil: 16, alerte: true  },
+    { cle: 'B', label: 'B. Hyperhydrose',                                          qs: [7,14],              max: 10, seuil: 4,  alerte: false },
+    { cle: 'C', label: 'C. Problèmes respiratoires',                               qs: [11,12,13],          max: 15, seuil: 4,  alerte: true  },
+    { cle: 'D', label: 'D. Parasomnies',                                           qs: [6,15,16,17],        max: 20, seuil: 7,  alerte: false },
+    { cle: 'E', label: 'E. Sommeil non réparateur et Somnolence diurne excessive', qs: [18,19,20,21,22],   max: 25, seuil: 7,  alerte: true  }
+];
+
+/* ══════════════════════════════════════════════
+   QUESTIONNAIRE 4 – 16 ANS (SDSC Putois 2017 / Bruni 1996)
+═══════════════════════════════════════════════ */
+const QUESTIONS_GRAND = [
+    { n:  1, t: "Combien d'heures l'enfant dort-il la plupart des nuits ?", o: HEURES },
+    { n:  2, t: "Combien de temps après sa mise au lit l'enfant met-il habituellement pour s'endormir ?", o: DELAI },
+    { n:  3, t: "L'enfant va au lit avec réticence", o: FREQ },
+    { n:  4, t: "L'enfant a des difficultés à s'endormir", o: FREQ },
+    { n:  5, t: "L'enfant ressent de l'anxiété ou des peurs au moment de s'endormir", o: FREQ },
+    { n:  6, t: "Lorsque l'enfant s'endort, il semble vivre ses rêves", o: FREQ },
+    { n:  7, t: "L'enfant transpire excessivement à l'endormissement", o: FREQ },
+    { n:  8, t: "L'enfant se réveille plus de 2 fois par nuit", o: FREQ },
+    { n:  9, t: "L'enfant a des difficultés à s'endormir à nouveau après s'être réveillé dans la nuit", o: FREQ },
+    { n: 10, t: "Dans son sommeil, l'enfant a des mouvements brusques ou des secousses des jambes, ou il change souvent de position durant la nuit, ou encore il jette les couvertures au pied de son lit", o: FREQ },
+    { n: 11, t: "L'enfant a des difficultés à respirer durant la nuit", o: FREQ },
+    { n: 12, t: "L'enfant fait des pauses respiratoires ou cherche sa respiration pendant son sommeil", o: FREQ },
+    { n: 13, t: "L'enfant ronfle", o: FREQ },
+    { n: 14, t: "L'enfant transpire excessivement pendant la nuit", o: FREQ },
+    { n: 15, t: "Vous avez assisté à un épisode de somnambulisme de l'enfant (il se lève et déambule pendant son sommeil)", o: FREQ },
+    { n: 16, t: "Vous avez déjà entendu l'enfant parler dans son sommeil", o: FREQ },
+    { n: 17, t: "L'enfant grince des dents pendant son sommeil", o: FREQ },
+    { n: 18, t: "L'enfant se réveille en hurlant ou est confus au point qu'il est impossible de l'approcher, mais il n'a aucun souvenir de ces événements le matin suivant", o: FREQ },
+    { n: 19, t: "L'enfant fait des cauchemars dont il ne se rappelle pas le matin venu", o: FREQ },
+    { n: 20, t: "L'enfant est difficile à réveiller le matin", o: FREQ },
+    { n: 21, t: "L'enfant se réveille le matin en se sentant fatigué", o: FREQ },
+    { n: 22, t: "L'enfant se sent incapable de bouger quand il se réveille le matin", o: FREQ },
+    { n: 23, t: "L'enfant est somnolent durant la journée", o: FREQ },
+    { n: 24, t: "L'enfant s'endort brutalement, de façon inattendue, à l'école ou lors de ses activités", o: FREQ },
+    { n: 25, t: "Lorsque l'enfant rit, il a une perte de tonus musculaire qui peut entraîner un affaissement du corps ou une chute", o: FREQ }
+];
+const SOUS_SCORES_GRAND = [
+    { cle: 'A', label: 'A. Insomnies',                   qs: [1,2,3,4,5,8,9],      max: 35, seuil: 21, alerte: true  },
+    { cle: 'B', label: 'B. Parasomnies',                 qs: [6,10,15,16,17,18,19], max: 35, seuil: 17, alerte: false },
+    { cle: 'C', label: 'C. Problèmes respiratoires',     qs: [7,11,12,13,14],       max: 25, seuil: 12, alerte: true  },
+    { cle: 'D', label: 'D. Sommeil non réparateur',      qs: [20,21,22],            max: 15, seuil: 11, alerte: false },
+    { cle: 'E', label: 'E. Somnolence diurne excessive', qs: [23,24,25],            max: 15, seuil: 5,  alerte: true  }
+];
+
+/* ══════════════════════════════════════════════
+   ÉTAT DYNAMIQUE
+═══════════════════════════════════════════════ */
+let ageGroup    = null;  // 'petit' | 'grand'
+let QUESTIONS   = [];
+let SOUS_SCORES = [];
+let TOTAL_SEUIL = 0;
+let TOTAL_MAX   = 0;
+const AGENDA_IDX   = 2;
+const TERMINAL_IDX = 3;
+let HAB_IDX      = null;  // null pour grand
+let FIRST_Q_IDX  = null;
+let CONTEXTE_IDX = null;
+let RESULTS_IDX  = null;
+let maxSlide     = 3;
+let RESULTATS    = null;
+let currentSlide = 0;
+const reponses   = {};
+
+/* ── Calcul d'âge ── */
+function calcAge(ddn) {
+    const today = new Date();
+    const birth = new Date(ddn);
+    let years  = today.getFullYear() - birth.getFullYear();
+    let months = today.getMonth() - birth.getMonth();
+    if (months < 0 || (months === 0 && today.getDate() < birth.getDate())) { years--; months += 12; }
+    if (today.getDate() < birth.getDate()) months--;
+    return { years, months, group: years < 4 ? 'petit' : 'grand' };
+}
+
+function onDdnChange() {
+    const ddn = document.getElementById('ddn').value;
+    const disp = document.getElementById('age-display');
+    if (!ddn) { disp.style.display = 'none'; return; }
+    const { years, months, group } = calcAge(ddn);
+    ageGroup = group;
+    const ageStr = years > 0
+        ? `${years} an${years > 1 ? 's' : ''}${months > 0 ? ` et ${months} mois` : ''}`
+        : `${months} mois`;
+    document.getElementById('age-text').textContent = ageStr;
+    document.getElementById('questionnaire-badge').textContent =
+        group === 'petit' ? '→ Questionnaire SDSC 6 mois – 4 ans' : '→ Questionnaire SDSC 4 – 16 ans';
+    disp.style.display = '';
+}
+
+/* ── Slide 1 : gate suivi ── */
+function onSuiviChange() {
+    const val  = document.querySelector('input[name="suivi-spec"]:checked')?.value;
+    const gate = document.getElementById('suivi-gate');
+    const cont = document.getElementById('suivi-continue');
+    if (val === 'non') {
+        gate.style.display = 'none';
+        cont.style.display = '';
+    } else if (val === 'oui' || val === 'demarche') {
+        gate.style.display = '';
+        cont.style.display = 'none';
+    }
+}
+
+/* ── Validation slide 0 ── */
+function validerInfos() {
+    const prenom = document.getElementById('prenom').value.trim();
+    const nom    = document.getElementById('nom').value.trim();
+    const ddn    = document.getElementById('ddn').value;
+    const sexe   = document.getElementById('sexe').value;
+    if (!prenom || !nom || !ddn || !sexe) {
+        alert("Merci de renseigner le prénom, le nom, la date de naissance et le sexe de l'enfant.");
+        return;
+    }
+    if (!ageGroup) onDdnChange();
+    goToSlide(1);
+}
+
+/* ── Injection du questionnaire (appelée depuis slide 2) ── */
+function lancerQuestionnaire() {
+    if (!ageGroup) {
+        const ddn = document.getElementById('ddn').value;
+        if (ddn) { const a = calcAge(ddn); ageGroup = a.group; }
+    }
+    if (!FIRST_Q_IDX) injectQuestionnaire();
+    goToSlide(ageGroup === 'petit' ? HAB_IDX : FIRST_Q_IDX);
+}
+
+function injectQuestionnaire() {
+    if (ageGroup === 'petit') {
+        QUESTIONS   = QUESTIONS_PETIT;
+        SOUS_SCORES = SOUS_SCORES_PETIT;
+        TOTAL_SEUIL = 37;
+        TOTAL_MAX   = 110;
+        HAB_IDX     = 4;
+        FIRST_Q_IDX = 5;
+    } else {
+        QUESTIONS   = QUESTIONS_GRAND;
+        SOUS_SCORES = SOUS_SCORES_GRAND;
+        TOTAL_SEUIL = 45;
+        TOTAL_MAX   = 125;
+        HAB_IDX     = null;
+        FIRST_Q_IDX = 4;
+    }
+    CONTEXTE_IDX = FIRST_Q_IDX + QUESTIONS.length;
+    RESULTS_IDX  = CONTEXTE_IDX + 1;
+    maxSlide     = RESULTS_IDX;
+
+    const track  = document.getElementById('wiz-track');
+    const badge  = ageGroup === 'petit' ? '🍼' : '🌟';
+    const nTotal = QUESTIONS.length;
+
+    /* Slide habitudes (petit uniquement) */
+    if (ageGroup === 'petit') {
+        const hab = document.createElement('div');
+        hab.className = 'wiz-slide';
+        hab.id = 'wiz-s-habitudes';
+        hab.innerHTML = `
+            <div class="wiz-q-wrap">
+                <div class="parcours-steps">
+                    <div class="pstep done"><span class="pstep-num">✓</span><span class="pstep-label">Votre enfant</span></div>
+                    <div class="pstep-line done"></div>
+                    <div class="pstep done"><span class="pstep-num">✓</span><span class="pstep-label">Suivi</span></div>
+                    <div class="pstep-line done"></div>
+                    <div class="pstep done"><span class="pstep-num">✓</span><span class="pstep-label">Agenda</span></div>
+                    <div class="pstep-line done"></div>
+                    <div class="pstep active"><span class="pstep-num">4</span><span class="pstep-label">Questionnaire</span></div>
+                </div>
+                <div class="wiz-q-badge">${badge} Habitudes de sommeil</div>
+                <p class="wiz-q-text" style="font-size:1rem;">Renseignez les habitudes habituelles de votre enfant</p>
+                <div class="quest-container" style="padding-top:0;">
+                    <div class="horaires-section" style="margin:0;">
+                        <div class="horaires-grille">
+                            <div class="entete-col"></div>
+                            <div class="entete-col">En semaine</div>
+                            <div class="entete-col">En week-end</div>
+                            <div class="entete-ligne">Heure de coucher habituelle</div>
+                            <input type="text" id="coucher-sem" placeholder="ex : 20h30">
+                            <input type="text" id="coucher-we"  placeholder="ex : 21h00">
+                            <div class="entete-ligne">Heure de lever matinal habituelle</div>
+                            <input type="text" id="lever-sem" placeholder="ex : 7h00">
+                            <input type="text" id="lever-we"  placeholder="ex : 8h00">
+                            <div class="entete-ligne">Durée des siestes (journée)</div>
+                            <input type="text" id="siestes-sem" placeholder="ex : 1h30">
+                            <input type="text" id="siestes-we"  placeholder="ex : 1h00">
+                            <div class="entete-ligne">Durée d'éveil nocturne</div>
+                            <input type="text" id="eveil-sem" placeholder="ex : 30 min">
+                            <input type="text" id="eveil-we"  placeholder="ex : 0">
+                        </div>
+                        <div class="reveils-ligne">
+                            <div class="form-groupe">
+                                <label for="nb-reveils">Nombre de réveils par nuit</label>
+                                <input type="text" id="nb-reveils" placeholder="ex : 2">
+                            </div>
+                            <div class="form-groupe" style="flex:2;">
+                                <label for="que-faites">Que faites-vous lors de ces réveils ?</label>
+                                <input type="text" id="que-faites" placeholder="ex : Je le prends dans les bras…">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wiz-q-nav">
+                    <button class="btn-wiz-prev" onclick="goToSlide(${AGENDA_IDX})">← Précédent</button>
+                    <button class="btn-wiz-cont" style="display:inline-block" onclick="goToSlide(${FIRST_Q_IDX})">Commencer le questionnaire →</button>
+                </div>
+            </div>`;
+        track.appendChild(hab);
+    }
+
+    /* Slides questions */
+    QUESTIONS.forEach((q, idx) => {
+        const slideIdx = FIRST_Q_IDX + idx;
+        const prevIdx  = idx === 0 ? (ageGroup === 'petit' ? HAB_IDX : AGENDA_IDX) : slideIdx - 1;
+        const nextIdx  = slideIdx + 1;
+
+        const div = document.createElement('div');
+        div.className = 'wiz-slide';
+        div.id = `wiz-sq${q.n}`;
+        div.innerHTML = `
+            <div class="wiz-q-wrap">
+                <div class="wiz-q-badge">${badge} Question ${q.n} sur ${nTotal}</div>
+                <p class="wiz-q-text">${q.t}</p>
+                <div class="wiz-q-opts" id="opts-${q.n}">
+                    ${q.o.map(o => `
+                        <button class="opt-btn" data-v="${o.v}"
+                                onclick="selectOpt(this, ${q.n}, ${o.v}, ${nextIdx})">
+                            <span class="opt-val">${o.v}</span>
+                            <div class="opt-body">
+                                <span class="opt-label">${o.l}</span>
+                                ${o.s ? `<span class="opt-sub">${o.s}</span>` : ''}
+                            </div>
+                        </button>
+                    `).join('')}
+                </div>
+                <div class="wiz-q-nav">
+                    <button class="btn-wiz-prev" onclick="goToSlide(${prevIdx})">← Précédent</button>
+                    <button class="btn-wiz-cont" id="btn-cont-${q.n}" onclick="goToSlide(${nextIdx})">Continuer →</button>
+                </div>
+            </div>`;
+        track.appendChild(div);
+    });
+
+    /* Slide contexte libre */
+    const ctx = document.createElement('div');
+    ctx.className = 'wiz-slide';
+    ctx.id = 'wiz-s-contexte';
+    ctx.innerHTML = `
+        <div class="wiz-q-wrap">
+            <div class="wiz-q-badge">${badge} Informations complémentaires</div>
+            <p class="wiz-q-text">Souhaitez-vous partager des éléments de contexte avec le Dr Marine AIME ?</p>
+            <p style="font-size:.85rem;color:var(--texte2);margin:-.5rem 0 .5rem;">Cette question est facultative.</p>
+            <textarea id="contexte-libre" class="contexte-textarea"
+                placeholder="Ex : difficultés particulières, événements récents, traitements en cours, antécédents familiaux…"></textarea>
+            <div class="wiz-q-nav">
+                <button class="btn-wiz-prev" onclick="goToSlide(${CONTEXTE_IDX - 1})">← Précédent</button>
+                <button class="btn-wiz-cont" style="display:inline-block" onclick="goToSlide(${RESULTS_IDX})">Voir les résultats →</button>
+            </div>
+        </div>`;
+    track.appendChild(ctx);
+
+    /* Slide résultats */
+    const versionLabel = ageGroup === 'petit' ? 'Enfant de 6 mois à 4 ans' : 'Enfant de 4 à 16 ans';
+    const res = document.createElement('div');
+    res.className = 'wiz-slide';
+    res.id = 'wiz-s-results';
+    res.innerHTML = `
+        <div class="quest-entete">
+            <div class="quest-entete-emoji">📊</div>
+            <h1 style="font-size:1.6rem;">Résultats du questionnaire</h1>
+            <p>SDSC — ${versionLabel}</p>
+        </div>
+        <div class="wiz-results-wrap">
+            <div id="resultats-contenu"></div>
+            <div class="resultats-actions">
+                <button onclick="genererPDF()" class="btn-pdf">📄 Télécharger le PDF</button>
+                <a href="https://www.doctolib.fr/medecin-generaliste/vendeuvre-du-poitou/marine-aime"
+                   target="_blank" class="btn-rdv-res">📅 Prendre rendez-vous</a>
+            </div>
+            <div style="text-align:center;margin-top:1.5rem;">
+                <button class="btn-wiz-prev" onclick="goToSlide(${CONTEXTE_IDX})">← Modifier</button>
+            </div>
+        </div>`;
+    track.appendChild(res);
+
+    document.getElementById('wiz-label-q').textContent = `Question 1 / ${nTotal}`;
+}
+
+/* ══════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════ */
+function goToSlide(n) {
+    if (n < 0 || n > maxSlide) return;
+    currentSlide = n;
+    const slideW = document.querySelector('.wiz-outer').getBoundingClientRect().width;
+    document.getElementById('wiz-track').style.transform = `translateX(-${n * slideW}px)`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateProgress(n);
+    restoreSlide(n);
+    if (n === RESULTS_IDX) calculerEtAfficher();
+}
+
+function restoreSlide(n) {
+    if (!FIRST_Q_IDX || n < FIRST_Q_IDX || n >= FIRST_Q_IDX + QUESTIONS.length) return;
+    const qIdx = n - FIRST_Q_IDX;
+    const q    = QUESTIONS[qIdx];
+    const val  = reponses[q.n];
+    document.querySelectorAll(`#opts-${q.n} .opt-btn`).forEach(btn => {
+        const v = parseInt(btn.dataset.v);
+        btn.classList.remove('opt-selected', 'opt-inactive');
+        if (val !== undefined && v === val) btn.classList.add('opt-selected');
+    });
+    const contBtn = document.getElementById(`btn-cont-${q.n}`);
+    if (contBtn) contBtn.style.display = val !== undefined ? '' : 'none';
+}
+
+function updateProgress(n) {
+    const wrap = document.getElementById('wiz-progress');
+    if (FIRST_Q_IDX && n >= FIRST_Q_IDX && n < FIRST_Q_IDX + QUESTIONS.length) {
+        wrap.classList.add('visible');
+        const qIdx    = n - FIRST_Q_IDX;
+        const answered = qIdx + (reponses[QUESTIONS[qIdx].n] !== undefined ? 1 : 0);
+        const pct     = (answered / QUESTIONS.length) * 100;
+        document.getElementById('wiz-fill').style.width      = pct + '%';
+        document.getElementById('wiz-label-q').textContent   = `Question ${qIdx + 1} / ${QUESTIONS.length}`;
+        document.getElementById('wiz-label-pct').textContent = Math.round(pct) + '%';
+    } else {
+        wrap.classList.remove('visible');
+    }
+}
+
+function selectOpt(btn, qNum, val, nextSlide) {
+    reponses[qNum] = val;
+    btn.closest('.wiz-q-opts').querySelectorAll('.opt-btn').forEach(b => {
+        b.classList.remove('opt-selected', 'opt-inactive');
+        b.classList.add(b === btn ? 'opt-selected' : 'opt-inactive');
+    });
+    const contBtn = document.getElementById(`btn-cont-${qNum}`);
+    if (contBtn) contBtn.style.display = '';
+    setTimeout(() => goToSlide(nextSlide), 380);
+}
+
+/* ══════════════════════════════════════════════
+   CALCUL & AFFICHAGE DES RÉSULTATS
+═══════════════════════════════════════════════ */
+function calculerEtAfficher() {
+    const manquantes = QUESTIONS.filter(q => reponses[q.n] === undefined);
+    if (manquantes.length > 0) {
+        const firstIdx = QUESTIONS.findIndex(q => q.n === manquantes[0].n);
+        goToSlide(FIRST_Q_IDX + firstIdx);
+        return;
+    }
+
+    const prenom = document.getElementById('prenom').value.trim();
+    const nom    = document.getElementById('nom').value.trim();
+    const ddn    = document.getElementById('ddn').value;
+    const sexe   = document.getElementById('sexe').value;
+
+    const ss    = SOUS_SCORES.map(s => {
+        const score = s.qs.reduce((sum, n) => sum + reponses[n], 0);
+        return { ...s, score, depasse: score > s.seuil };
+    });
+    const total = ss.reduce((sum, s) => sum + s.score, 0);
+
+    const habitudes = ageGroup === 'petit' ? {
+        coucherSem: document.getElementById('coucher-sem')?.value || '',
+        coucherWe:  document.getElementById('coucher-we')?.value  || '',
+        leverSem:   document.getElementById('lever-sem')?.value   || '',
+        leverWe:    document.getElementById('lever-we')?.value    || '',
+        siestesSem: document.getElementById('siestes-sem')?.value || '',
+        siestesWe:  document.getElementById('siestes-we')?.value  || '',
+        eveilSem:   document.getElementById('eveil-sem')?.value   || '',
+        eveilWe:    document.getElementById('eveil-we')?.value    || '',
+        nbReveils:  document.getElementById('nb-reveils')?.value  || '',
+        queFaites:  document.getElementById('que-faites')?.value  || ''
+    } : null;
+
+    RESULTATS = {
+        patient: { prenom, nom, ddn, sexe,
+                   taille: document.getElementById('taille').value,
+                   poids:  document.getElementById('poids').value },
+        habitudes,
+        reponses: { ...reponses }, ss, total,
+        total_depasse: total > TOTAL_SEUIL,
+        suiviSpec: document.querySelector('input[name="suivi-spec"]:checked')?.value || 'non',
+        contexte:  (document.getElementById('contexte-libre')?.value || '').trim(),
+        date: new Date().toLocaleDateString('fr-FR'),
+        ageGroup
+    };
+
+    afficher();
+}
+
+function afficher() {
+    const { ss, total, suiviSpec } = RESULTATS;
+    const alertesACE = ss.filter(s => s.depasse && s.alerte);
+
+    let html = `
+        <div class="score-total info">
+            <span>Score total</span>
+            <span>${total} / ${TOTAL_MAX} — seuil : ${TOTAL_SEUIL}</span>
+            <span class="badge ${total > TOTAL_SEUIL ? 'badge-attention' : 'badge-ok'}">${total > TOTAL_SEUIL ? 'Élevé' : 'Dans la norme'}</span>
+        </div>`;
+
+    ss.forEach(s => {
+        const cls = s.depasse ? (s.alerte ? 'alerte' : 'attention') : '';
+        html += `
+        <div class="ss-ligne ${cls}">
+            <span class="ss-label">${s.label}</span>
+            <span class="ss-scores">${s.score} / ${s.max} &nbsp;|&nbsp; Seuil : ${s.seuil}</span>
+            <span class="badge ${s.depasse ? (s.alerte ? 'badge-alerte' : 'badge-attention') : 'badge-ok'}">
+                ${s.depasse ? 'Au-dessus' : 'Normal'}
+            </span>
+        </div>`;
+    });
+
+    if (alertesACE.length > 0) {
+        const codes = alertesACE.map(a => a.cle).join(', ');
+        if (suiviSpec === 'oui') {
+            html += `<div class="recommandation-box suivi">
+                <strong>À noter :</strong> Les scores ${codes} dépassent le seuil clinique. Votre enfant étant déjà suivi par un spécialiste du sommeil, pensez à partager ces résultats lors de votre prochain rendez-vous spécialisé.
+            </div>`;
+        } else if (suiviSpec === 'demarche') {
+            html += `<div class="recommandation-box suivi">
+                <strong>À noter :</strong> Les scores ${codes} dépassent le seuil clinique. Ces résultats viendraient utilement compléter la démarche de consultation spécialisée en cours.
+            </div>`;
+        } else {
+            html += `<div class="recommandation-box">
+                <strong>Recommandation :</strong> Les scores ${codes} dépassent le seuil clinique. Une consultation spécialisée du sommeil est conseillée.
+                <br><a href="https://www.doctolib.fr/medecin-generaliste/vendeuvre-du-poitou/marine-aime" target="_blank" class="btn-rdv-inline">Prendre rendez-vous avec le Dr Marine AIME →</a>
+            </div>`;
+        }
+    }
+
+    html += `<div class="disclaimer-box">
+        Ces scores ne peuvent en aucun cas remplacer le diagnostic d'un spécialiste du sommeil. Ce questionnaire est destiné à préparer votre consultation avec le Dr Marine AIME.
+    </div>`;
+
+    document.getElementById('resultats-contenu').innerHTML = html;
+}
+
+/* ══════════════════════════════════════════════
+   GÉNÉRATION PDF
+═══════════════════════════════════════════════ */
+function genererPDF() {
+    if (!RESULTATS) return;
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const { patient, habitudes, ss, total, total_depasse, date, reponses: rep, suiviSpec, contexte, ageGroup: ag } = RESULTATS;
+
+    const CORAIL       = [232, 130, 90];
+    const CORAIL2      = [240, 160, 128];
+    const CORAIL_CLAIR = [253, 240, 234];
+    const LAVANDE      = [139, 124, 184];
+    const LAVANDE_CLAIR= [240, 237, 248];
+    const CREME        = [250, 247, 242];
+    const VERT         = [92, 184, 122];
+    const VERT_CLAIR   = [234, 246, 238];
+    const ORANGE       = [217, 134, 58];
+    const ORANGE_CLAIR = [253, 243, 227];
+    const ROUGE        = [214, 79, 79];
+    const ROUGE_CLAIR  = [253, 234, 234];
+    const TEXTE        = [45, 45, 45];
+    const TEXTE2       = [122, 122, 138];
+    const BLANC        = [255, 255, 255];
+    const BORDURE      = [237, 232, 224];
+
+    const versionLabel = ag === 'petit' ? 'Enfant de 6 mois à 4 ans' : 'Enfant de 4 à 16 ans';
+    const refLabel     = ag === 'petit'
+        ? 'Réf. : Bruni O et al. SDSC. J Sleep Res. 1996. — Lecuelle F et al. Sleep Med. 2020;67:56-65.'
+        : 'Réf. : Bruni O et al. SDSC. J Sleep Res. 1996. — Putois B et al. Sleep Med. 2017;32:56-65.';
+    const filename = ag === 'petit'
+        ? `SDSC_6mois-4ans_${patient.prenom}_${patient.nom}_${date.replace(/\//g, '-')}.pdf`
+        : `SDSC_4-16ans_${patient.prenom}_${patient.nom}_${date.replace(/\//g, '-')}.pdf`;
+
+    let y = 0;
+
+    // ── En-tête ──
+    doc.setFillColor(...CORAIL);
+    doc.rect(0, 0, 210, 28, 'F');
+    doc.setFillColor(...CORAIL2);
+    doc.circle(198, 4, 16, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(14); doc.setFont('helvetica', 'bold');
+    doc.text('Dr Marine AIME', 105, 10, { align: 'center' });
+    doc.setFontSize(8.5); doc.setFont('helvetica', 'normal');
+    doc.text("Médecin Généraliste — Troubles du Sommeil de l'Enfant", 105, 17, { align: 'center' });
+    doc.text('Pôle Santé, 36 rue du Moulin des Justices, 17138 Puilboreau  |  09 73 03 05 76', 105, 23, { align: 'center' });
+    y = 34;
+
+    doc.setFillColor(...CORAIL_CLAIR);
+    doc.roundedRect(15, y, 180, 10, 2, 2, 'F');
+    doc.setTextColor(...CORAIL); doc.setFontSize(10); doc.setFont('helvetica', 'bold');
+    doc.text(`Questionnaire SDSC — ${versionLabel}`, 105, y + 7, { align: 'center' });
+    doc.setFontSize(7); doc.setFont('helvetica', 'normal'); doc.setTextColor(...TEXTE2);
+    doc.text('Complété le : ' + date, 193, y + 7, { align: 'right' });
+    y += 15;
+
+    // ── Patient ──
+    const patientH = ag === 'petit' ? 24 : 20;
+    doc.setFillColor(...CREME);
+    doc.roundedRect(15, y, 180, patientH, 2, 2, 'F');
+    doc.setTextColor(...CORAIL); doc.setFontSize(8.5); doc.setFont('helvetica', 'bold');
+    doc.text('Informations patient', 20, y + 6);
+    doc.setTextColor(...TEXTE); doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+    doc.text(patient.prenom + ' ' + patient.nom, 20, y + 13);
+    const ddnFr    = patient.ddn ? new Date(patient.ddn).toLocaleDateString('fr-FR') : '';
+    const infoLigne = [ddnFr ? 'Né(e) le ' + ddnFr : '', patient.sexe, patient.taille, patient.poids].filter(Boolean).join('   ·   ');
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(...TEXTE2);
+    doc.text(infoLigne, 105, y + 13, { align: 'center' });
+    const suiviLabel = suiviSpec === 'oui' ? 'Déjà suivi par un spécialiste du sommeil'
+                     : suiviSpec === 'demarche' ? 'Démarche en cours vers un spécialiste' : 'Pas de suivi spécialisé actuel';
+    doc.setFontSize(7);
+    doc.text('Suivi : ' + suiviLabel, 20, y + (ag === 'petit' ? 21 : 18));
+    y += patientH + 5;
+
+    // ── Habitudes (petit uniquement) ──
+    if (ag === 'petit' && habitudes) {
+        doc.setFillColor(...CREME);
+        doc.roundedRect(15, y, 180, 38, 2, 2, 'F');
+        doc.setTextColor(...CORAIL); doc.setFontSize(8.5); doc.setFont('helvetica', 'bold');
+        doc.text('Habitudes de sommeil', 20, y + 7);
+        const col1 = 20, col2 = 95, col3 = 148;
+        doc.setFontSize(7.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...TEXTE2);
+        doc.text('Semaine', col2, y + 13); doc.text('Week-end', col3, y + 13);
+        doc.setFont('helvetica', 'normal');
+        [
+            ['Heure de coucher',  habitudes.coucherSem, habitudes.coucherWe],
+            ['Heure de lever',    habitudes.leverSem,   habitudes.leverWe],
+            ['Durée des siestes', habitudes.siestesSem, habitudes.siestesWe],
+            ['Éveil nocturne',    habitudes.eveilSem,   habitudes.eveilWe],
+        ].forEach((r, i) => {
+            const yy = y + 19 + i * 5;
+            doc.setTextColor(...TEXTE2); doc.text(r[0], col1, yy);
+            doc.setTextColor(...TEXTE); doc.text(r[1] || '—', col2, yy); doc.text(r[2] || '—', col3, yy);
+        });
+        if (habitudes.nbReveils || habitudes.queFaites) {
+            doc.setTextColor(...TEXTE2); doc.setFontSize(7.5);
+            const rev = 'Réveils : ' + (habitudes.nbReveils || '—') + '/nuit' + (habitudes.queFaites ? '   ·   Réaction : ' + habitudes.queFaites : '');
+            doc.text(rev, col1, y + 39, { maxWidth: 170 });
+        }
+        y += 44;
+    }
+
+    // ── Score total ──
+    const sCol = total_depasse ? ROUGE : VERT;
+    doc.setFillColor(...sCol);
+    doc.roundedRect(15, y, 180, 10, 2, 2, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFontSize(9); doc.setFont('helvetica', 'bold');
+    doc.text('Score total', 20, y + 7);
+    doc.text(`${total} / ${TOTAL_MAX}   (seuil : ${TOTAL_SEUIL})`, 105, y + 7, { align: 'center' });
+    doc.text(total_depasse ? '▲ Au-dessus du seuil' : '✓ Dans la norme', 193, y + 7, { align: 'right' });
+    y += 13;
+
+    ss.forEach((s, i) => {
+        doc.setFillColor(...(i % 2 === 0 ? CREME : BLANC));
+        doc.rect(15, y, 180, 8, 'F');
+        const lc = s.depasse ? (s.alerte ? ROUGE : ORANGE) : VERT;
+        doc.setFillColor(...lc); doc.rect(15, y, 2.5, 8, 'F');
+        doc.setTextColor(...TEXTE); doc.setFont('helvetica', s.depasse ? 'bold' : 'normal'); doc.setFontSize(8);
+        doc.text(s.label, 21, y + 5.5);
+        doc.setTextColor(...TEXTE2); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
+        doc.text(s.score + ' / ' + s.max, 130, y + 5.5); doc.text('seuil ' + s.seuil, 152, y + 5.5);
+        const bc  = s.depasse ? (s.alerte ? ROUGE : ORANGE) : VERT;
+        const bcc = s.depasse ? (s.alerte ? ROUGE_CLAIR : ORANGE_CLAIR) : VERT_CLAIR;
+        doc.setFillColor(...bcc); doc.roundedRect(172, y + 1, 20, 6, 1.5, 1.5, 'F');
+        doc.setTextColor(...bc); doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5);
+        doc.text(s.depasse ? 'Haut' : 'Normal', 182, y + 5.5, { align: 'center' });
+        y += 8;
+    });
+    doc.setDrawColor(...BORDURE); doc.setLineWidth(0.3);
+    doc.rect(15, y - ss.length * 8 - 13, 180, ss.length * 8 + 13, 'S');
+    y += 5;
+
+    const alertes = ss.filter(s => s.depasse && s.alerte);
+    if (alertes.length > 0) {
+        const codes = alertes.map(a => a.cle).join(', ');
+        doc.setFillColor(254, 249, 231); doc.setDrawColor(245, 200, 66); doc.setLineWidth(0.4);
+        doc.roundedRect(15, y, 180, 12, 2, 2, 'FD');
+        doc.setTextColor(133, 96, 0); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+        if (suiviSpec === 'oui') {
+            doc.text('À noter : ', 20, y + 5.5);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Scores ' + codes + ' > seuil. Enfant déjà suivi — à mentionner lors du prochain rendez-vous spécialisé.', 49, y + 5.5, { maxWidth: 144 });
+        } else if (suiviSpec === 'demarche') {
+            doc.text('À noter : ', 20, y + 5.5);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Scores ' + codes + ' > seuil. Ces résultats complèteront la démarche de consultation spécialisée en cours.', 49, y + 5.5, { maxWidth: 144 });
+        } else {
+            doc.text('Recommandation : ', 20, y + 5.5);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Scores ' + codes + ' au-dessus du seuil — consultation spécialisée recommandée.', 62, y + 5.5, { maxWidth: 131 });
+        }
+        y += 17;
+    }
+
+    doc.setFillColor(...LAVANDE_CLAIR);
+    doc.roundedRect(15, y, 180, 10, 2, 2, 'F');
+    doc.setTextColor(...LAVANDE); doc.setFontSize(7); doc.setFont('helvetica', 'italic');
+    doc.text("Ces scores ne remplacent pas le diagnostic d'un spécialiste. Ce questionnaire prépare la consultation avec le Dr Marine AIME.", 105, y + 7, { align: 'center', maxWidth: 170 });
+    y += 14;
+
+    doc.setTextColor(...TEXTE2); doc.setFontSize(6.5); doc.setFont('helvetica', 'normal');
+    doc.text(refLabel, 15, y);
+    y += 8;
+
+    if (contexte) {
+        if (y + 20 > 278) { doc.addPage(); y = 15; }
+        doc.setFillColor(...CREME);
+        doc.roundedRect(15, y, 180, 8, 2, 2, 'F');
+        doc.setTextColor(...CORAIL); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+        doc.text('Éléments de contexte partagés par la famille', 20, y + 5.5);
+        y += 10;
+        const contexteLines = doc.splitTextToSize(contexte, 168);
+        const contexteH = Math.max(12, contexteLines.length * 4.5 + 8);
+        if (y + contexteH > 278) { doc.addPage(); y = 15; }
+        doc.setFillColor(...BLANC); doc.setDrawColor(...BORDURE); doc.setLineWidth(0.3);
+        doc.roundedRect(15, y, 180, contexteH, 2, 2, 'FD');
+        doc.setTextColor(...TEXTE); doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+        doc.text(contexteLines, 20, y + 6);
+        y += contexteH + 5;
+    }
+
+    if (y + 25 > 278) { doc.addPage(); y = 15; }
+    doc.setTextColor(...TEXTE); doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+    doc.text('Signature / Cachet du médecin :', 15, y);
+    doc.setDrawColor(...BORDURE); doc.setLineWidth(0.4);
+    doc.rect(15, y + 3, 75, 18, 'S');
+
+    // ── Page 2 : toutes les réponses ──
+    doc.addPage(); y = 15;
+    doc.setFillColor(...CORAIL);
+    doc.roundedRect(15, y, 180, 9, 2, 2, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFontSize(9.5); doc.setFont('helvetica', 'bold');
+    doc.text(`Détail des réponses — ${patient.prenom} ${patient.nom} — ${date}`, 105, y + 6.5, { align: 'center' });
+    y += 13;
+
+    doc.setFillColor(...CREME); doc.roundedRect(15, y, 180, 7, 2, 2, 'F');
+    doc.setTextColor(...TEXTE2); doc.setFontSize(6.5); doc.setFont('helvetica', 'italic');
+    doc.text('1 = Jamais   2 = Rarement (1-3×/mois)   3 = Parfois (1-2×/sem.)   4 = Souvent (3-5×/sem.)   5 = Toujours (quotidien)', 105, y + 5, { align: 'center' });
+    y += 11;
+
+    doc.setFontSize(7.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...TEXTE2);
+    doc.text('N°', 18, y); doc.text('Question', 27, y); doc.text('Réponse', 172, y, { align: 'center' });
+    y += 5;
+
+    QUESTIONS.forEach((q, idx) => {
+        const val      = rep[q.n];
+        const opt      = q.o.find(o => o.v === val);
+        const repLabel = opt ? opt.l : '—';
+        const repSub   = (opt && opt.s) ? opt.s : '';
+        const lines    = doc.splitTextToSize(q.t, 128);
+        const blockH   = Math.max(9, lines.length * 4 + 4);
+
+        if (y + blockH > 282) {
+            doc.addPage(); y = 15;
+            doc.setFillColor(...CREME); doc.roundedRect(15, y, 180, 7, 2, 2, 'F');
+            doc.setTextColor(...TEXTE2); doc.setFontSize(6.5); doc.setFont('helvetica', 'italic');
+            doc.text(`(suite) — ${patient.prenom} ${patient.nom} · SDSC ${ag === 'petit' ? '6 mois – 4 ans' : '4 – 16 ans'} · ${date}`, 105, y + 5, { align: 'center' });
+            y += 11;
+        }
+
+        doc.setFillColor(...(idx % 2 === 0 ? CREME : BLANC));
+        doc.rect(15, y, 180, blockH, 'F');
+        doc.setTextColor(...CORAIL); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+        doc.text(String(q.n) + '.', 20, y + blockH / 2 + 1.5, { align: 'right' });
+        doc.setTextColor(...TEXTE); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
+        doc.text(lines, 23, y + (blockH - lines.length * 4) / 2 + 4);
+
+        const bc  = val >= 4 ? ROUGE : (val === 3 ? ORANGE : VERT);
+        const bcc = val >= 4 ? ROUGE_CLAIR : (val === 3 ? ORANGE_CLAIR : VERT_CLAIR);
+        doc.setFillColor(...bcc);
+        doc.roundedRect(153, y + 1, 39, blockH - 2, 1.5, 1.5, 'F');
+        doc.setTextColor(...bc); doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5);
+        doc.text(String(val), 159, y + blockH / 2 + 2);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5);
+        doc.text(repLabel, 164, y + blockH / 2 + (repSub ? 0 : 1.5), { maxWidth: 26 });
+        if (repSub) {
+            doc.setFontSize(5.5); doc.setTextColor(...TEXTE2);
+            doc.text(repSub, 164, y + blockH / 2 + 4, { maxWidth: 26 });
+        }
+        y += blockH;
+    });
+
+    y += 6;
+    if (y > 278) { doc.addPage(); y = 15; }
+    doc.setFillColor(...CORAIL_CLAIR);
+    doc.roundedRect(15, y, 180, 7, 2, 2, 'F');
+    doc.setTextColor(...CORAIL); doc.setFontSize(7); doc.setFont('helvetica', 'italic');
+    doc.text(`Document confidentiel · Dr Marine AIME · Pôle Santé · 09 73 03 05 76 · ${date}`, 105, y + 5, { align: 'center' });
+
+    doc.save(filename);
+}
+</script>
+<script src="nav.js"></script>
+</body>
+</html>
