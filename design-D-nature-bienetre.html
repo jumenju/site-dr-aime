@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposal D — Nature & Bien-être</title>
+<style>
+  /* ── DIRECTION D : NATURE & BIEN-ÊTRE ──
+     Sauge · Beige chaud · Formes organiques
+     Ambiance : Calm / Headspace · Wellness · Holistique
+  */
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --beige:   #f5f0e8;
+    --beige2:  #ede7d9;
+    --beige3:  #e0d8c8;
+    --sauge:   #6b8f71;
+    --sauge2:  #8faa94;
+    --sauge3:  #d1e0d4;
+    --terre:   #8b6f47;
+    --terre2:  #b8956a;
+    --blanc:   #ffffff;
+    --texte:   #2a2420;
+    --texte2:  #6b6258;
+    --bordure: #d8d0c4;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family:'DM Sans', system-ui, sans-serif;
+    background:var(--beige); color:var(--texte);
+    overflow-x:hidden;
+  }
+
+  .badge-prop {
+    position:fixed; top:12px; right:12px; z-index:999;
+    background:var(--sauge); color:#fff;
+    padding:.4rem 1rem; border-radius:20px;
+    font-size:.75rem; font-weight:600; letter-spacing:.05em;
+  }
+
+  /* ── NAVIGATION ── */
+  header {
+    position:sticky; top:0; z-index:100;
+    background:rgba(245,240,232,.94);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--bordure);
+  }
+  nav {
+    max-width:1140px; margin:0 auto; padding:1rem 2rem;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .logo-leaf {
+    font-size:1.4rem;
+    filter:drop-shadow(0 2px 4px rgba(107,143,113,.3));
+  }
+  .logo-wrap { display:flex; align-items:center; gap:.8rem; }
+  .logo-nom {
+    font-family:'DM Serif Display', serif;
+    font-size:1.1rem; color:var(--texte);
+  }
+  .logo-sub { font-size:.7rem; color:var(--texte2); letter-spacing:.05em; }
+  .nav-liens { list-style:none; display:flex; gap:2rem; align-items:center; }
+  .nav-liens a { color:var(--texte2); text-decoration:none; font-size:.85rem; font-weight:500; transition:color .2s; }
+  .nav-liens a:hover { color:var(--sauge); }
+  .btn-rdv {
+    background:var(--sauge); color:#fff !important;
+    padding:.5rem 1.3rem; border-radius:8px;
+    font-weight:500 !important; font-size:.85rem !important;
+    letter-spacing:.02em;
+    transition:background .2s !important;
+  }
+  .btn-rdv:hover { background:var(--sauge2) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    padding:0;
+    min-height:88vh; display:flex; align-items:stretch;
+    position:relative; overflow:hidden;
+  }
+  /* forme organique en fond */
+  .hero::before {
+    content:'';
+    position:absolute; top:-10%; right:-5%;
+    width:55%; height:130%;
+    background:var(--sauge3);
+    border-radius:60% 40% 40% 60% / 50% 60% 40% 50%;
+    z-index:0;
+    opacity:.5;
+  }
+  .hero::after {
+    content:'';
+    position:absolute; bottom:-20%; left:-5%;
+    width:40%; height:80%;
+    background:var(--beige3);
+    border-radius:40% 60% 60% 40% / 60% 40% 60% 40%;
+    z-index:0;
+    opacity:.7;
+  }
+  .hero-inner {
+    max-width:1140px; margin:0 auto; padding:7rem 2rem;
+    display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;
+    position:relative; z-index:1; width:100%;
+  }
+  .hero-texte {}
+  .hero-label {
+    display:inline-flex; align-items:center; gap:.6rem;
+    font-size:.8rem; font-weight:500; color:var(--sauge);
+    letter-spacing:.08em; text-transform:uppercase;
+    margin-bottom:1.5rem;
+  }
+  .hero-label::before {
+    content:''; display:block; width:24px; height:1.5px;
+    background:var(--sauge);
+  }
+  .hero h1 {
+    font-family:'DM Serif Display', serif;
+    font-size:3.2rem; line-height:1.2; color:var(--texte);
+    margin-bottom:1.5rem;
+  }
+  .hero h1 em { color:var(--sauge); font-style:italic; }
+  .hero-sub {
+    font-size:1rem; color:var(--texte2); line-height:1.8;
+    margin-bottom:2.5rem; max-width:420px;
+  }
+  .hero-ctas { display:flex; gap:1rem; flex-wrap:wrap; }
+  .btn-primaire {
+    background:var(--sauge); color:#fff;
+    padding:.8rem 2rem; border-radius:8px;
+    text-decoration:none; font-weight:500;
+    letter-spacing:.02em;
+    transition:all .2s;
+    box-shadow:0 4px 20px rgba(107,143,113,.25);
+  }
+  .btn-primaire:hover { background:var(--sauge2); transform:translateY(-2px); }
+  .btn-secondaire {
+    background:transparent; color:var(--texte);
+    padding:.8rem 1.8rem; border-radius:8px;
+    text-decoration:none; font-weight:500;
+    border:1.5px solid var(--bordure);
+    transition:all .2s;
+  }
+  .btn-secondaire:hover { border-color:var(--sauge); color:var(--sauge); }
+
+  /* ── CARTES HERO ── */
+  .hero-visuel { display:flex; flex-direction:column; gap:1.2rem; }
+  .hero-carte {
+    background:rgba(255,255,255,.8);
+    backdrop-filter:blur(8px);
+    border:1px solid var(--bordure);
+    border-radius:20px; padding:1.8rem;
+    text-decoration:none; color:var(--texte);
+    display:flex; align-items:center; gap:1.2rem;
+    transition:all .25s;
+    box-shadow:0 2px 20px rgba(0,0,0,.04);
+  }
+  .hero-carte:hover {
+    background:var(--blanc);
+    box-shadow:0 8px 40px rgba(0,0,0,.08);
+    transform:translateY(-3px);
+  }
+  .carte-dot {
+    width:56px; height:56px; flex-shrink:0;
+    background:var(--sauge3); border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem;
+  }
+  .carte-age { font-family:'DM Serif Display',serif; font-size:1.2rem; color:var(--texte); margin-bottom:.3rem; }
+  .carte-desc { font-size:.82rem; color:var(--texte2); line-height:1.5; }
+  .carte-arrow { margin-left:auto; color:var(--sauge); font-size:1.2rem; flex-shrink:0; opacity:.5; }
+  .hero-carte:hover .carte-arrow { opacity:1; }
+
+  /* ── BIEN-ÊTRE STATS ── */
+  .stats-band {
+    background:var(--sauge);
+    padding:3rem 2rem;
+    position:relative; overflow:hidden;
+  }
+  .stats-band::before {
+    content:'';
+    position:absolute; right:-50px; top:-50px;
+    width:200px; height:200px; border-radius:50%;
+    background:rgba(255,255,255,.06);
+  }
+  .stats-inner {
+    max-width:900px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:2rem; text-align:center;
+  }
+  .stat-item {}
+  .stat-chiffre {
+    font-family:'DM Serif Display',serif;
+    font-size:2.5rem; color:#fff; margin-bottom:.3rem;
+  }
+  .stat-label { font-size:.82rem; color:rgba(255,255,255,.75); line-height:1.5; }
+
+  /* ── ÉTAPES ── */
+  .etapes-section {
+    padding:7rem 2rem;
+    position:relative;
+  }
+  .etapes-inner { max-width:1000px; margin:0 auto; }
+  .etapes-header { margin-bottom:4rem; }
+  .section-label {
+    font-size:.78rem; font-weight:500; color:var(--sauge);
+    letter-spacing:.1em; text-transform:uppercase;
+    display:flex; align-items:center; gap:.6rem; margin-bottom:1rem;
+  }
+  .section-label::before { content:''; width:20px; height:1.5px; background:var(--sauge); }
+  .etapes-header h2 {
+    font-family:'DM Serif Display',serif;
+    font-size:2.4rem; color:var(--texte); max-width:420px; line-height:1.3;
+  }
+  .etapes-grille {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    position:relative;
+  }
+  .etapes-grille::before {
+    content:'';
+    position:absolute; top:28px; left:10%; right:10%; height:1.5px;
+    background:linear-gradient(to right, var(--sauge3), var(--sauge2), var(--sauge3));
+    z-index:0;
+  }
+  .etape {
+    text-align:center; padding:0 1rem 2rem;
+    position:relative; z-index:1;
+  }
+  .etape-cercle {
+    width:56px; height:56px; margin:0 auto 1.5rem;
+    background:var(--blanc); border:2px solid var(--sauge3);
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:1.4rem;
+    box-shadow:0 4px 15px rgba(107,143,113,.15);
+    transition:all .2s;
+  }
+  .etape:hover .etape-cercle {
+    border-color:var(--sauge);
+    box-shadow:0 6px 20px rgba(107,143,113,.25);
+    transform:scale(1.05);
+  }
+  .etape h3 { font-weight:600; font-size:.95rem; color:var(--texte); margin-bottom:.5rem; }
+  .etape p { font-size:.82rem; color:var(--texte2); line-height:1.6; }
+
+  /* ── MÉDECIN ── */
+  .medecin-section { padding:7rem 2rem; background:var(--beige2); }
+  .medecin-inner {
+    max-width:1000px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1.4fr; gap:5rem; align-items:start;
+  }
+  .medecin-carte {
+    background:var(--blanc); border-radius:24px;
+    padding:2.5rem; position:sticky; top:100px;
+    box-shadow:0 4px 30px rgba(0,0,0,.06);
+    border:1px solid var(--bordure);
+  }
+  .medecin-photo {
+    width:80px; height:80px; border-radius:50%;
+    background:linear-gradient(135deg,var(--sauge3),var(--sauge2));
+    display:flex; align-items:center; justify-content:center;
+    font-size:2rem; margin-bottom:1.2rem;
+  }
+  .medecin-carte h2 {
+    font-family:'DM Serif Display',serif;
+    font-size:1.5rem; color:var(--texte); margin-bottom:.3rem;
+  }
+  .medecin-carte .sous { color:var(--texte2); font-size:.83rem; margin-bottom:2rem; line-height:1.6; }
+  .info-ligne {
+    display:flex; align-items:flex-start; gap:.8rem;
+    padding:.7rem 0; border-bottom:1px solid var(--beige2);
+    font-size:.85rem; color:var(--texte2);
+  }
+  .info-icone { font-size:1rem; flex-shrink:0; margin-top:.05rem; }
+  .btn-doctolib {
+    display:block; background:var(--sauge); color:#fff;
+    text-align:center; padding:.85rem; border-radius:10px;
+    font-weight:500; text-decoration:none; margin-top:1.5rem;
+    transition:background .2s; letter-spacing:.02em;
+  }
+  .btn-doctolib:hover { background:var(--sauge2); }
+
+  .medecin-contenu {}
+  .section-label-sm {
+    font-size:.75rem; font-weight:500; color:var(--sauge);
+    letter-spacing:.1em; text-transform:uppercase; margin-bottom:.8rem;
+    display:block;
+  }
+  .medecin-contenu h3 {
+    font-family:'DM Serif Display',serif;
+    font-size:1.6rem; color:var(--texte); margin-bottom:1.5rem; line-height:1.3;
+  }
+  .medecin-contenu p {
+    font-size:.93rem; color:var(--texte2); line-height:1.85;
+    margin-bottom:1rem;
+  }
+  .engagement-list { margin-top:2rem; }
+  .engagement-item {
+    display:grid; grid-template-columns:auto 1fr; gap:1rem;
+    padding:1.2rem 0; border-bottom:1px solid var(--bordure);
+    align-items:start;
+  }
+  .eng-point {
+    width:8px; height:8px; background:var(--sauge);
+    border-radius:50%; margin-top:.4rem; flex-shrink:0;
+  }
+  .engagement-item strong { font-size:.9rem; color:var(--texte); display:block; margin-bottom:.2rem; }
+  .engagement-item span { font-size:.83rem; color:var(--texte2); line-height:1.5; }
+
+  /* ── FOOTER ── */
+  footer {
+    background:var(--texte); color:rgba(255,255,255,.45);
+    padding:2.5rem 2rem; text-align:center;
+  }
+  footer p { font-size:.8rem; line-height:1.9; }
+  footer strong { color:rgba(255,255,255,.7); }
+
+  @media(max-width:900px) {
+    .hero-inner { grid-template-columns:1fr; padding:4rem 1.5rem; }
+    .hero::before { display:none; }
+    .hero h1 { font-size:2.2rem; }
+    .etapes-grille { grid-template-columns:1fr 1fr; }
+    .etapes-grille::before { display:none; }
+    .medecin-inner { grid-template-columns:1fr; gap:2rem; }
+    .medecin-carte { position:static; }
+    .stats-inner { grid-template-columns:1fr; gap:1.5rem; }
+    .nav-liens { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="badge-prop">Proposition D · Nature & Bien-être</div>
+
+<header>
+  <nav>
+    <div class="logo-wrap">
+      <span class="logo-leaf">🌿</span>
+      <div>
+        <div class="logo-nom">Dr Marine AIME</div>
+        <div class="logo-sub">Médecin Généraliste</div>
+      </div>
+    </div>
+    <ul class="nav-liens">
+      <li><a href="#">Accueil</a></li>
+      <li><a href="#">6 mois – 4 ans</a></li>
+      <li><a href="#">4 – 16 ans</a></li>
+      <li><a href="#" class="btn-rdv">Prendre RDV</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-texte">
+      <div class="hero-label">Bilan sommeil de l'enfant</div>
+      <h1>Un sommeil<br>sain pour <em>chaque</em><br>enfant</h1>
+      <p class="hero-sub">Préparez votre consultation grâce à nos questionnaires cliniques. Basés sur les observations de 6 mois, ils guident le Dr AIME vers le bon diagnostic.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primaire">Commencer l'évaluation</a>
+        <a href="#" class="btn-secondaire">En savoir plus</a>
+      </div>
+    </div>
+    <div class="hero-visuel">
+      <a href="#" class="hero-carte">
+        <div class="carte-dot">🍼</div>
+        <div>
+          <div class="carte-age">6 mois – 4 ans</div>
+          <div class="carte-desc">Questionnaire SDSC · Nourrissons et jeunes enfants</div>
+        </div>
+        <div class="carte-arrow">→</div>
+      </a>
+      <a href="#" class="hero-carte">
+        <div class="carte-dot">🌙</div>
+        <div>
+          <div class="carte-age">4 – 16 ans</div>
+          <div class="carte-desc">Questionnaire SDSC · Enfants et adolescents</div>
+        </div>
+        <div class="carte-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-chiffre">10 min</div>
+      <div class="stat-label">Durée moyenne<br>du questionnaire</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-chiffre">SDSC</div>
+      <div class="stat-label">Questionnaire clinique<br>validé scientifiquement</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-chiffre">PDF</div>
+      <div class="stat-label">Rapport personnalisé<br>à apporter en consultation</div>
+    </div>
+  </div>
+</div>
+
+<section class="etapes-section">
+  <div class="etapes-inner">
+    <div class="etapes-header">
+      <div class="section-label">Comment ça fonctionne</div>
+      <h2>Simple, guidé,<br>cliniquement rigoureux</h2>
+    </div>
+    <div class="etapes-grille">
+      <div class="etape">
+        <div class="etape-cercle">🎯</div>
+        <h3>Choisissez</h3>
+        <p>Le questionnaire adapté à l'âge de votre enfant</p>
+      </div>
+      <div class="etape">
+        <div class="etape-cercle">💬</div>
+        <h3>Répondez</h3>
+        <p>En vous basant sur vos observations des 6 derniers mois</p>
+      </div>
+      <div class="etape">
+        <div class="etape-cercle">📄</div>
+        <h3>Téléchargez</h3>
+        <p>Votre rapport PDF complet et personnalisé</p>
+      </div>
+      <div class="etape">
+        <div class="etape-cercle">👩‍⚕️</div>
+        <h3>Consultez</h3>
+        <p>Le Dr AIME analyse les résultats avec vous</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="medecin-section">
+  <div class="medecin-inner">
+    <div class="medecin-carte">
+      <div class="medecin-photo">👩‍⚕️</div>
+      <h2>Dr Marine AIME</h2>
+      <p class="sous">Médecin Généraliste<br>Troubles du sommeil · Neurodéveloppement</p>
+      <div class="info-ligne">
+        <span class="info-icone">📍</span>
+        <span>Pôle Santé, 36 rue du Moulin des Justices<br>17138 Puilboreau</span>
+      </div>
+      <div class="info-ligne">
+        <span class="info-icone">📞</span>
+        <span>09 73 03 05 76</span>
+      </div>
+      <div class="info-ligne">
+        <span class="info-icone">⏱</span>
+        <span>Expérience : 10+ ans</span>
+      </div>
+      <a href="#" class="btn-doctolib">Prendre rendez-vous sur Doctolib</a>
+    </div>
+    <div class="medecin-contenu">
+      <span class="section-label-sm">À propos</span>
+      <h3>Une médecine centrée sur la famille et le bien dormir</h3>
+      <p>Médecin généraliste installée depuis dix ans dans la région de La Rochelle, j'ai orienté ma pratique vers la santé des enfants et des adolescents.</p>
+      <p>Au quotidien, je rencontre des familles confrontées à des nuits difficiles, des enfants fatigués, des parents épuisés. Les troubles du sommeil sont souvent mal identifiés — pourtant, les prendre en charge tôt change profondément le quotidien de toute une famille.</p>
+      <p>C'est pourquoi je me suis spécifiquement formée aux <strong>troubles du sommeil de l'enfant</strong> et aux <strong>troubles du neurodéveloppement</strong> (TDAH, TSA, Haut Potentiel Intellectuel), pour être un repère fiable pour vous et votre enfant.</p>
+      <div class="engagement-list">
+        <div class="engagement-item">
+          <div class="eng-point"></div>
+          <div>
+            <strong>Réseau COCON</strong>
+            <span>Repérage précoce des enfants à risque de TND</span>
+          </div>
+        </div>
+        <div class="engagement-item">
+          <div class="eng-point"></div>
+          <div>
+            <strong>CPTS Aunis Nord</strong>
+            <span>Coordination des soins sur le territoire</span>
+          </div>
+        </div>
+        <div class="engagement-item">
+          <div class="eng-point"></div>
+          <div>
+            <strong>SAMU 17</strong>
+            <span>Régulatrice médicale</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Dr Marine AIME</strong> — Médecin Généraliste</p>
+  <p>Pôle Santé · 36 rue du Moulin des Justices · 17138 Puilboreau · 09 73 03 05 76</p>
+  <p>Ces questionnaires ne remplacent pas un avis médical. Ils sont destinés à préparer votre consultation.</p>
+</footer>
+
+</body>
+</html>

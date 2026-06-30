@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposal C — Chaleur Familiale</title>
+<style>
+  /* ── DIRECTION C : CHALEUR FAMILIALE ──
+     Crème + corail + lavande · Arrondi · Accueillant
+     Ambiance : bienveillance, famille, sécurité émotionnelle
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
+
+  :root {
+    --creme:   #faf7f2;
+    --blanc:   #ffffff;
+    --corail:  #e8825a;
+    --corail2: #f0a080;
+    --lavande: #8b7cb8;
+    --lavande2:#b8aad0;
+    --jaune:   #f5c842;
+    --texte:   #2d2d2d;
+    --texte2:  #7a7a8a;
+    --bordure: #ede8e0;
+    --vert:    #5cb87a;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family:'Nunito', system-ui, sans-serif;
+    background:var(--creme); color:var(--texte);
+    overflow-x:hidden;
+  }
+
+  .badge-prop {
+    position:fixed; top:12px; right:12px; z-index:999;
+    background:var(--corail); color:#fff;
+    padding:.4rem 1rem; border-radius:20px;
+    font-size:.75rem; font-weight:700; letter-spacing:.05em;
+  }
+
+  /* ── NAVIGATION ── */
+  header {
+    position:sticky; top:0; z-index:100;
+    background:rgba(250,247,242,.95);
+    backdrop-filter:blur(10px);
+    border-bottom:2px solid var(--bordure);
+  }
+  nav {
+    max-width:1140px; margin:0 auto; padding:1rem 2rem;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .logo-badge {
+    width:40px; height:40px; border-radius:50%;
+    background:linear-gradient(135deg,var(--corail),var(--corail2));
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .logo-wrap { display:flex; align-items:center; gap:.8rem; }
+  .logo-nom { font-size:1rem; font-weight:800; color:var(--texte); }
+  .logo-sub { font-size:.7rem; color:var(--texte2); font-weight:600; }
+  .nav-liens { list-style:none; display:flex; gap:2rem; align-items:center; }
+  .nav-liens a { color:var(--texte2); text-decoration:none; font-size:.88rem; font-weight:600; transition:color .2s; }
+  .nav-liens a:hover { color:var(--corail); }
+  .btn-rdv {
+    background:var(--corail); color:#fff !important;
+    padding:.5rem 1.3rem; border-radius:25px;
+    font-weight:700 !important; font-size:.85rem !important;
+    box-shadow:0 4px 15px rgba(232,130,90,.3);
+    transition:all .2s !important;
+  }
+  .btn-rdv:hover { background:var(--corail2) !important; transform:translateY(-1px) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    padding:5rem 2rem 4rem;
+    text-align:center;
+    position:relative; overflow:hidden;
+  }
+  /* déco bulles */
+  .hero::before {
+    content:'';
+    position:absolute; top:-60px; right:5%;
+    width:300px; height:300px; border-radius:50%;
+    background:radial-gradient(circle, rgba(232,130,90,.12), transparent 70%);
+    z-index:0;
+  }
+  .hero::after {
+    content:'';
+    position:absolute; bottom:-40px; left:5%;
+    width:250px; height:250px; border-radius:50%;
+    background:radial-gradient(circle, rgba(139,124,184,.12), transparent 70%);
+    z-index:0;
+  }
+  .hero-inner { max-width:700px; margin:0 auto; position:relative; z-index:1; }
+
+  .hero-emoji-cloud {
+    font-size:1.8rem; margin-bottom:1rem;
+    display:flex; justify-content:center; gap:1rem;
+    align-items:center;
+  }
+  .float1 { animation:f1 3s ease-in-out infinite; }
+  .float2 { animation:f1 3.5s ease-in-out infinite .5s; font-size:2.4rem; }
+  .float3 { animation:f1 4s ease-in-out infinite 1s; }
+  @keyframes f1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  .hero h1 {
+    font-size:2.8rem; font-weight:800; line-height:1.2;
+    color:var(--texte); margin-bottom:1rem;
+  }
+  .hero h1 .accent-corail { color:var(--corail); }
+  .hero h1 .accent-lavande { color:var(--lavande); }
+  .hero-sub {
+    font-size:1.05rem; color:var(--texte2); line-height:1.7;
+    margin-bottom:3rem; max-width:520px; margin-left:auto; margin-right:auto; margin-bottom:3rem;
+  }
+
+  .hero-cartes { display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap; }
+  .hero-carte {
+    background:var(--blanc); border-radius:28px;
+    padding:2.2rem 2rem; width:260px;
+    text-decoration:none; color:var(--texte);
+    box-shadow:0 4px 30px rgba(0,0,0,.06);
+    border:2px solid transparent;
+    transition:all .25s;
+    display:flex; flex-direction:column; align-items:center; gap:.8rem;
+  }
+  .hero-carte:hover {
+    transform:translateY(-8px);
+    box-shadow:0 16px 50px rgba(0,0,0,.1);
+  }
+  .carte-a:hover { border-color:var(--corail); }
+  .carte-b:hover { border-color:var(--lavande); }
+
+  .carte-bulle {
+    width:70px; height:70px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:2rem;
+  }
+  .bulle-corail { background:rgba(232,130,90,.12); }
+  .bulle-lavande { background:rgba(139,124,184,.12); }
+
+  .carte-age { font-size:1.2rem; font-weight:800; }
+  .age-corail { color:var(--corail); }
+  .age-lavande { color:var(--lavande); }
+  .carte-desc { font-size:.84rem; color:var(--texte2); text-align:center; line-height:1.5; }
+  .carte-btn {
+    padding:.5rem 1.5rem; border-radius:25px;
+    font-weight:700; font-size:.85rem; margin-top:.3rem;
+  }
+  .btn-corail { background:var(--corail); color:#fff; }
+  .btn-lavande { background:var(--lavande); color:#fff; }
+
+  /* ── ÉTAPES ── */
+  .etapes-section { padding:6rem 2rem; }
+  .etapes-section h2 {
+    text-align:center; font-size:2rem; font-weight:800;
+    color:var(--texte); margin-bottom:.6rem;
+  }
+  .etapes-sub {
+    text-align:center; color:var(--texte2); font-size:.95rem;
+    margin-bottom:3.5rem;
+  }
+  .etapes-grille {
+    display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap;
+    max-width:1000px; margin:0 auto;
+  }
+  .etape {
+    background:var(--blanc); border-radius:24px;
+    padding:2rem 1.5rem; width:210px; text-align:center;
+    box-shadow:0 2px 20px rgba(0,0,0,.05);
+    position:relative;
+  }
+  .etape-bulle {
+    width:60px; height:60px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.6rem; margin:0 auto 1.2rem;
+  }
+  .b1 { background:rgba(245,200,66,.15); }
+  .b2 { background:rgba(232,130,90,.12); }
+  .b3 { background:rgba(92,184,122,.12); }
+  .b4 { background:rgba(139,124,184,.12); }
+  .etape h3 { font-size:.95rem; font-weight:800; color:var(--texte); margin-bottom:.5rem; }
+  .etape p { font-size:.82rem; color:var(--texte2); line-height:1.6; }
+  .etape-fleche {
+    position:absolute; right:-1.5rem; top:50%;
+    transform:translateY(-50%);
+    font-size:1.2rem; color:var(--bordure);
+    pointer-events:none;
+  }
+  .etape:last-child .etape-fleche { display:none; }
+
+  /* ── TÉMOIGNAGE (section feel-good) ── */
+  .feel-section {
+    padding:4rem 2rem;
+    background:linear-gradient(135deg, rgba(139,124,184,.08), rgba(232,130,90,.06));
+    border-radius:0;
+  }
+  .feel-inner {
+    max-width:700px; margin:0 auto; text-align:center;
+  }
+  .feel-quote {
+    font-size:1.15rem; font-weight:600; color:var(--texte);
+    line-height:1.8; font-style:italic; margin-bottom:1.5rem;
+  }
+  .feel-author { font-size:.85rem; color:var(--texte2); }
+  .feel-stars { color:var(--jaune); font-size:1.1rem; margin-bottom:.5rem; }
+
+  /* ── MÉDECIN ── */
+  .medecin-section { padding:6rem 2rem; }
+  .medecin-inner {
+    max-width:900px; margin:0 auto;
+    background:var(--blanc); border-radius:32px;
+    padding:3.5rem; box-shadow:0 4px 40px rgba(0,0,0,.06);
+    position:relative; overflow:hidden;
+  }
+  .medecin-inner::before {
+    content:'';
+    position:absolute; top:-30px; right:-30px;
+    width:200px; height:200px; border-radius:50%;
+    background:radial-gradient(circle, rgba(232,130,90,.1), transparent 70%);
+    z-index:0;
+  }
+  .medecin-header {
+    display:flex; align-items:center; gap:1.5rem; margin-bottom:2.5rem;
+    position:relative; z-index:1;
+  }
+  .medecin-avatar {
+    width:80px; height:80px; border-radius:50%;
+    background:linear-gradient(135deg,var(--corail),var(--lavande));
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.2rem; flex-shrink:0;
+  }
+  .medecin-header h2 { font-size:1.8rem; font-weight:800; color:var(--texte); }
+  .medecin-header p { color:var(--texte2); font-size:.9rem; margin-top:.2rem; }
+
+  .medecin-grid {
+    display:grid; grid-template-columns:1.5fr 1fr; gap:3rem;
+    position:relative; z-index:1;
+  }
+  .medecin-contenu p {
+    font-size:.93rem; color:var(--texte2); line-height:1.8;
+    margin-bottom:1rem;
+  }
+  .tag-pills { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:1.5rem; }
+  .pill {
+    padding:.3rem .9rem; border-radius:20px;
+    font-size:.75rem; font-weight:700;
+  }
+  .pill-corail { background:rgba(232,130,90,.12); color:var(--corail); }
+  .pill-lavande { background:rgba(139,124,184,.12); color:var(--lavande); }
+  .pill-vert { background:rgba(92,184,122,.12); color:var(--vert); }
+
+  .medecin-aside {}
+  .engagement-card {
+    background:var(--creme); border-radius:16px;
+    padding:1.2rem; margin-bottom:.8rem;
+    font-size:.85rem; color:var(--texte2); line-height:1.5;
+  }
+  .engagement-card strong { color:var(--texte); display:block; margin-bottom:.2rem; }
+
+  .contact-bulle {
+    background:linear-gradient(135deg,var(--corail),var(--corail2));
+    border-radius:20px; padding:1.8rem; color:#fff; margin-top:1rem;
+  }
+  .contact-bulle p { font-size:.88rem; line-height:1.8; opacity:.9; margin-bottom:1.2rem; }
+  .btn-doctolib {
+    display:block; background:#fff; color:var(--corail);
+    text-align:center; padding:.75rem; border-radius:12px;
+    font-weight:700; text-decoration:none; font-size:.88rem;
+    transition:transform .2s;
+  }
+  .btn-doctolib:hover { transform:scale(1.02); }
+
+  /* ── FOOTER ── */
+  footer {
+    background:var(--texte); color:rgba(255,255,255,.5);
+    padding:2.5rem 2rem; text-align:center;
+    border-radius:0;
+  }
+  footer p { font-size:.82rem; line-height:1.8; }
+  footer strong { color:rgba(255,255,255,.8); }
+
+  @media(max-width:800px) {
+    .hero h1 { font-size:1.9rem; }
+    .medecin-grid { grid-template-columns:1fr; gap:2rem; }
+    .etape-fleche { display:none; }
+    .nav-liens { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="badge-prop">Proposition C · Chaleur Familiale</div>
+
+<header>
+  <nav>
+    <div class="logo-wrap">
+      <div class="logo-badge">🌙</div>
+      <div>
+        <div class="logo-nom">Dr Marine AIME</div>
+        <div class="logo-sub">Médecin Généraliste</div>
+      </div>
+    </div>
+    <ul class="nav-liens">
+      <li><a href="#">Accueil</a></li>
+      <li><a href="#">6 mois – 4 ans</a></li>
+      <li><a href="#">4 – 16 ans</a></li>
+      <li><a href="#" class="btn-rdv">Prendre RDV</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-emoji-cloud">
+      <span class="float1">😴</span>
+      <span class="float2">🌙</span>
+      <span class="float3">⭐</span>
+    </div>
+    <h1>Votre enfant mérite<br>de <span class="accent-corail">bonnes nuits</span> de<br><span class="accent-lavande">sommeil</span></h1>
+    <p class="hero-sub">Préparez votre consultation en remplissant notre questionnaire clinique. Simple, bienveillant, conçu pour les familles.</p>
+    <div class="hero-cartes">
+      <a href="#" class="hero-carte carte-a">
+        <div class="carte-bulle bulle-corail">🍼</div>
+        <div class="carte-age age-corail">6 mois – 4 ans</div>
+        <div class="carte-desc">Nourrissons et jeunes enfants</div>
+        <div class="carte-btn btn-corail">Commencer</div>
+      </a>
+      <a href="#" class="hero-carte carte-b">
+        <div class="carte-bulle bulle-lavande">🌟</div>
+        <div class="carte-age age-lavande">4 – 16 ans</div>
+        <div class="carte-desc">Enfants et adolescents</div>
+        <div class="carte-btn btn-lavande">Commencer</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="etapes-section">
+  <h2>Comment ça fonctionne ?</h2>
+  <p class="etapes-sub">Quatre étapes simples pour préparer votre visite</p>
+  <div class="etapes-grille">
+    <div class="etape">
+      <div class="etape-bulle b1">🎯</div>
+      <h3>Choisissez</h3>
+      <p>Le questionnaire adapté à l'âge de votre enfant</p>
+      <div class="etape-fleche">›</div>
+    </div>
+    <div class="etape">
+      <div class="etape-bulle b2">💬</div>
+      <h3>Répondez</h3>
+      <p>En vous basant sur les 6 derniers mois</p>
+      <div class="etape-fleche">›</div>
+    </div>
+    <div class="etape">
+      <div class="etape-bulle b3">📄</div>
+      <h3>Téléchargez</h3>
+      <p>Votre rapport PDF personnalisé</p>
+      <div class="etape-fleche">›</div>
+    </div>
+    <div class="etape">
+      <div class="etape-bulle b4">👩‍⚕️</div>
+      <h3>Consultez</h3>
+      <p>Le Dr AIME analyse les résultats avec vous</p>
+      <div class="etape-fleche">›</div>
+    </div>
+  </div>
+</section>
+
+<section class="feel-section">
+  <div class="feel-inner">
+    <div class="feel-stars">★★★★★</div>
+    <p class="feel-quote">"Grâce au questionnaire, j'ai pu décrire précisément les troubles de mon fils lors de la consultation. Le Dr AIME a immédiatement identifié ce qui ne fonctionnait pas. Je recommande à toutes les familles qui vivent des nuits difficiles."</p>
+    <div class="feel-author">— Une maman, Puilboreau</div>
+  </div>
+</section>
+
+<section class="medecin-section">
+  <div class="medecin-inner">
+    <div class="medecin-header">
+      <div class="medecin-avatar">👩‍⚕️</div>
+      <div>
+        <h2>Dr Marine AIME</h2>
+        <p>Médecin Généraliste · Troubles du Sommeil & Neurodéveloppement</p>
+      </div>
+    </div>
+    <div class="medecin-grid">
+      <div class="medecin-contenu">
+        <div class="tag-pills">
+          <span class="pill pill-corail">Sommeil enfant</span>
+          <span class="pill pill-lavande">TDAH · TSA · HPI</span>
+          <span class="pill pill-vert">10 ans d'expérience</span>
+        </div>
+        <p>Médecin généraliste installée depuis dix ans dans la région de La Rochelle, je me suis orientée vers la santé des enfants et adolescents.</p>
+        <p>Au quotidien, je rencontre des familles confrontées à des nuits difficiles, des enfants fatigués, des parents épuisés. Les troubles du sommeil sont souvent mal identifiés — pourtant, les prendre en charge tôt change profondément le quotidien de toute une famille.</p>
+        <p>Je me suis spécifiquement formée aux <strong>troubles du sommeil</strong> et aux <strong>troubles du neurodéveloppement</strong> pour être un repère fiable pour vous et votre enfant.</p>
+      </div>
+      <div class="medecin-aside">
+        <div class="engagement-card">
+          <strong>Réseau COCON</strong>
+          Repérage précoce des enfants à risque de TND
+        </div>
+        <div class="engagement-card">
+          <strong>CPTS Aunis Nord</strong>
+          Coordination des soins sur le territoire
+        </div>
+        <div class="engagement-card">
+          <strong>SAMU 17</strong>
+          Régulatrice médicale
+        </div>
+        <div class="contact-bulle">
+          <p>Pôle Santé — 2ème étage<br>
+          36 rue du Moulin des Justices<br>
+          17138 Puilboreau<br>
+          09 73 03 05 76</p>
+          <a href="#" class="btn-doctolib">📅 Prendre rendez-vous sur Doctolib</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Dr Marine AIME</strong> — Médecin Généraliste · Puilboreau (17)</p>
+  <p>Ces questionnaires ne remplacent pas un avis médical. Ils sont destinés à préparer votre consultation.</p>
+</footer>
+
+</body>
+</html>
