@@ -1376,7 +1376,16 @@ footer strong { color: rgba(255, 255, 255, .8); }
     .horaires-grille .entete-col:first-child { display: none; }
     .horaires-grille .entete-ligne        { grid-column: 1 / -1; padding-top: .4rem; }
 
-    /* Champ nb réveils : plus de largeur fixe */
+    /* Police ≥ 16px sur tous les champs → évite le zoom automatique iOS */
+    .form-groupe input,
+    .form-groupe select,
+    .horaires-grille input  { font-size: 1rem; }
+
+    /* Padding réduit sur les sections du questionnaire */
+    .quest-container                    { padding: 0 1rem; }
+    .patient-section, .horaires-section { padding: 1.4rem; }
+
+    /* Réveils : pas de largeur fixe */
     .reveils-ligne .form-groupe { flex: 1; min-width: 0; }
 
     .etapes { gap: 1rem; }
@@ -1423,7 +1432,11 @@ footer strong { color: rgba(255, 255, 255, .8); }
 
     .patient-section,
     .horaires-section  { padding: 1.2rem; }
-    .form-rangee       { gap: .8rem; }
+
+    /* Champs en colonne unique sur petits écrans */
+    .form-rangee        { flex-direction: column; gap: .75rem; }
+    .form-groupe        { min-width: 0; }
+    .reveils-ligne      { flex-direction: column; gap: .75rem; }
 
     .question-bloc  { padding: 1rem 1.1rem; }
     .question-texte { font-size: .9rem; }
