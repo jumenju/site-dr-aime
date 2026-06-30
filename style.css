@@ -1732,6 +1732,33 @@ footer strong { color: rgba(255, 255, 255, .8); }
     margin: 1rem 0;
 }
 
+/* ── Emoji qui se réveille au survol ── */
+.emoji-reveil {
+    position: relative;
+    display: inline-block;
+    cursor: default;
+}
+.emoji-dort,
+.emoji-eveille {
+    display: inline-block;
+    transition: opacity .35s, transform .35s;
+}
+.emoji-eveille {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transform: scale(.6) rotate(-15deg);
+}
+.emoji-reveil:hover .emoji-dort {
+    opacity: 0;
+    transform: scale(.6) rotate(15deg);
+}
+.emoji-reveil:hover .emoji-eveille {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
 /* ── Photo Dr AIME ── */
 .pres-profil {
     display: flex;
