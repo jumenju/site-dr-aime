@@ -1732,6 +1732,45 @@ footer strong { color: rgba(255, 255, 255, .8); }
     margin: 1rem 0;
 }
 
+/* ── Photo Dr AIME ── */
+.pres-profil {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+}
+.pres-photo {
+    flex: 0 0 200px;
+    width: 200px;
+    height: 260px;
+    object-fit: cover;
+    object-position: center 15%;
+    border-radius: 20px;
+    box-shadow: 0 10px 32px rgba(0,0,0,.14);
+    border: 3px solid var(--blanc);
+}
+.pres-profil-info {
+    flex: 1;
+    padding-top: .5rem;
+}
+.pres-profil-info h2 { margin-bottom: .3rem; }
+.pres-profil-info .pres-sous { margin-bottom: .9rem; }
+
+@media (max-width: 720px) {
+    .pres-profil {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+    }
+    .pres-photo {
+        flex: none;
+        width: 160px;
+        height: 210px;
+    }
+    .pres-profil-info { text-align: center; }
+    .pres-profil-info .pres-pills { justify-content: center; }
+}
+
 /* Hero page d'accueil — CTA unique */
 .hero-cta-unique {
     display: flex;
