@@ -1471,3 +1471,96 @@ footer strong { color: rgba(255, 255, 255, .8); }
     .ressources-hero { padding: 2.5rem 1.2rem; }
     .ressource-card-header { gap: .6rem; }
 }
+
+/* ── SCORE TOTAL INFORMATIF ── */
+.score-total.info { background: var(--lavande-clair); color: var(--lavande); }
+.badge-info { background: var(--lavande-clair); color: var(--lavande); }
+
+/* ── RECOMMANDATION CONDITIONNELLE ── */
+.recommandation-box {
+    background: #fef9e7;
+    border: 1.5px solid #f5c842;
+    border-radius: 14px;
+    padding: 1rem 1.3rem;
+    font-size: .9rem;
+    color: #7a6000;
+    margin-top: 1.2rem;
+    line-height: 1.7;
+}
+.recommandation-box.suivi {
+    background: var(--lavande-clair);
+    border-color: var(--lavande);
+    color: var(--lavande);
+}
+.btn-rdv-inline {
+    display: inline-block;
+    margin-top: .6rem;
+    background: #0596DE;
+    color: #fff;
+    padding: .45rem 1.2rem;
+    border-radius: 20px;
+    font-size: .83rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity .2s;
+}
+.btn-rdv-inline:hover { opacity: .85; }
+
+/* ── SUIVI SPÉCIALISTE (slide 0) ── */
+.suivi-section {
+    background: var(--blanc);
+    border-radius: 20px;
+    padding: 1.8rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,.04);
+}
+.suivi-section h2 {
+    color: var(--corail);
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: .8rem;
+}
+.suivi-radios {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: .4rem;
+}
+.suivi-radios label {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--texte);
+}
+.suivi-radios input[type="radio"] {
+    accent-color: var(--corail);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* ── CONTEXTE LIBRE ── */
+.contexte-textarea {
+    width: 100%;
+    min-height: 130px;
+    padding: .8rem 1rem;
+    border: 2px solid var(--bordure);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: .9rem;
+    color: var(--texte);
+    background: var(--creme);
+    resize: vertical;
+    line-height: 1.6;
+    margin-top: .8rem;
+    box-sizing: border-box;
+    transition: border-color .2s;
+}
+.contexte-textarea:focus {
+    outline: none;
+    border-color: var(--corail);
+    background: var(--blanc);
+}

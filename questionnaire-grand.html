@@ -99,6 +99,16 @@
                     </div>
                 </div>
 
+                <div class="suivi-section">
+                    <h2>Suivi médical</h2>
+                    <p style="font-size:.85rem;color:var(--texte2);margin-bottom:.5rem;">L'enfant est-il actuellement suivi par un spécialiste du sommeil ?</p>
+                    <div class="suivi-radios">
+                        <label><input type="radio" name="suivi-spec" value="non"> Non</label>
+                        <label><input type="radio" name="suivi-spec" value="oui"> Oui</label>
+                        <label><input type="radio" name="suivi-spec" value="demarche"> Démarche en cours</label>
+                    </div>
+                </div>
+
                 <div class="wiz-start-wrap">
                     <button class="btn-wiz-start" onclick="startQuiz()">Commencer le questionnaire →</button>
                     <p class="wiz-start-hint">25 questions · environ 4 minutes</p>
@@ -180,7 +190,8 @@ const SOUS_SCORES = [
 ];
 const TOTAL_SEUIL = 45;
 const TOTAL_MAX   = 125;
-const RESULTS_IDX = 1 + QUESTIONS.length; // slide 0 = patient, slides 1..25 = questions, 26 = résultats
+const CONTEXTE_IDX = 1 + QUESTIONS.length; // slide 26 = contexte libre
+const RESULTS_IDX  = 2 + QUESTIONS.length; // slide 27 = résultats
 
 let RESULTATS = null;
 let currentSlide = 0;
@@ -218,12 +229,30 @@ function renderWizard() {
                     <button class="btn-wiz-prev" onclick="goToSlide(${prevIdx})">← Précédent</button>
                     <button class="btn-wiz-cont" id="btn-cont-${q.n}"
                             onclick="goToSlide(${nextIdx})">
-                        ${isLast ? 'Voir les résultats →' : 'Continuer →'}
+                        Continuer →
                     </button>
                 </div>
             </div>`;
         track.appendChild(div);
     });
+
+    // Slide contexte libre (optionnel)
+    const ctx = document.createElement('div');
+    ctx.className = 'wiz-slide';
+    ctx.id = 'wiz-s-contexte';
+    ctx.innerHTML = `
+        <div class="wiz-q-wrap">
+            <div class="wiz-q-badge">🌟 Informations complémentaires</div>
+            <p class="wiz-q-text">Souhaitez-vous partager des éléments de contexte avec le Dr Marine AIME ?</p>
+            <p style="font-size:.85rem;color:var(--texte2);margin:-.5rem 0 .5rem;">Cette question est facultative.</p>
+            <textarea id="contexte-libre" class="contexte-textarea"
+                placeholder="Ex : difficultés particulières, événements récents, traitements en cours, antécédents familiaux…"></textarea>
+            <div class="wiz-q-nav">
+                <button class="btn-wiz-prev" onclick="goToSlide(${QUESTIONS.length})">← Précédent</button>
+                <button class="btn-wiz-cont" style="display:inline-block" onclick="goToSlide(${RESULTS_IDX})">Voir les résultats →</button>
+            </div>
+        </div>`;
+    track.appendChild(ctx);
 
     // Slide résultats
     const res = document.createElement('div');
@@ -243,7 +272,7 @@ function renderWizard() {
                    target="_blank" class="btn-rdv-res">📅 Prendre rendez-vous</a>
             </div>
             <div style="text-align:center;margin-top:1.5rem;">
-                <button class="btn-wiz-prev" onclick="goToSlide(${QUESTIONS.length})">← Modifier mes réponses</button>
+                <button class="btn-wiz-prev" onclick="goToSlide(${CONTEXTE_IDX})">← Modifier</button>
             </div>
         </div>`;
     track.appendChild(res);
@@ -342,6 +371,8 @@ function calculerEtAfficher() {
                    poids:  document.getElementById('poids').value },
         reponses: { ...reponses }, ss, total,
         total_depasse: total > TOTAL_SEUIL,
+        suiviSpec: document.querySelector('input[name="suivi-spec"]:checked')?.value || 'non',
+        contexte:  (document.getElementById('contexte-libre')?.value || '').trim(),
         date: new Date().toLocaleDateString('fr-FR')
     };
 
@@ -349,14 +380,14 @@ function calculerEtAfficher() {
 }
 
 function afficher() {
-    const { ss, total, total_depasse } = RESULTATS;
-    const alertes = ss.filter(s => s.depasse && s.alerte);
+    const { ss, total, suiviSpec } = RESULTATS;
+    const alertesACE = ss.filter(s => s.depasse && s.alerte);
 
     let html = `
-        <div class="score-total ${total_depasse ? 'haut' : 'ok'}">
+        <div class="score-total info">
             <span>Score total</span>
-            <span>${total} / ${TOTAL_MAX} — Seuil : ${TOTAL_SEUIL}</span>
-            <span class="badge ${total_depasse ? 'badge-alerte' : 'badge-ok'}">${total_depasse ? 'Au-dessus du seuil' : 'Dans la norme'}</span>
+            <span>${total} / ${TOTAL_MAX} — seuil : ${TOTAL_SEUIL}</span>
+            <span class="badge ${total > TOTAL_SEUIL ? 'badge-attention' : 'badge-ok'}">${total > TOTAL_SEUIL ? 'Élevé' : 'Dans la norme'}</span>
         </div>`;
 
     ss.forEach(s => {
@@ -371,10 +402,22 @@ function afficher() {
         </div>`;
     });
 
-    if (alertes.length > 0) {
-        html += `<div class="alerte-box">
-            <strong>Recommandation :</strong> Les scores ${alertes.map(a => a.cle).join(', ')} dépassent le seuil. Une consultation spécialisée du sommeil est recommandée.
-        </div>`;
+    if (alertesACE.length > 0) {
+        const codes = alertesACE.map(a => a.cle).join(', ');
+        if (suiviSpec === 'oui') {
+            html += `<div class="recommandation-box suivi">
+                <strong>À noter :</strong> Les scores ${codes} dépassent le seuil clinique. Votre enfant étant déjà suivi par un spécialiste du sommeil, pensez à partager ces résultats lors de votre prochain rendez-vous spécialisé.
+            </div>`;
+        } else if (suiviSpec === 'demarche') {
+            html += `<div class="recommandation-box suivi">
+                <strong>À noter :</strong> Les scores ${codes} dépassent le seuil clinique. Ces résultats viendraient utilement compléter la démarche de consultation spécialisée en cours.
+            </div>`;
+        } else {
+            html += `<div class="recommandation-box">
+                <strong>Recommandation :</strong> Les scores ${codes} dépassent le seuil clinique. Une consultation spécialisée du sommeil est conseillée.
+                <br><a href="https://www.doctolib.fr/medecin-generaliste/vendeuvre-du-poitou/marine-aime" target="_blank" class="btn-rdv-inline">Prendre rendez-vous avec le Dr Marine AIME →</a>
+            </div>`;
+        }
     }
 
     html += `<div class="disclaimer-box">
@@ -389,7 +432,7 @@ function genererPDF() {
     if (!RESULTATS) return;
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    const { patient, ss, total, total_depasse, date, reponses } = RESULTATS;
+    const { patient, ss, total, total_depasse, date, reponses, suiviSpec, contexte } = RESULTATS;
 
     const CORAIL        = [232, 130, 90];
     const CORAIL2       = [240, 160, 128];
@@ -432,7 +475,7 @@ function genererPDF() {
     y += 15;
 
     doc.setFillColor(...CREME);
-    doc.roundedRect(15, y, 180, 18, 2, 2, 'F');
+    doc.roundedRect(15, y, 180, 24, 2, 2, 'F');
     doc.setTextColor(...CORAIL); doc.setFontSize(8.5); doc.setFont('helvetica', 'bold');
     doc.text('Informations patient', 20, y + 6);
     doc.setTextColor(...TEXTE); doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
@@ -441,7 +484,11 @@ function genererPDF() {
     const infoLigne = [ddnFr ? 'Né(e) le ' + ddnFr : '', patient.sexe, patient.taille, patient.poids].filter(Boolean).join('   ·   ');
     doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(...TEXTE2);
     doc.text(infoLigne, 105, y + 13, { align: 'center' });
-    y += 23;
+    const suiviLabel = suiviSpec === 'oui' ? 'Déjà suivi par un spécialiste du sommeil'
+                     : suiviSpec === 'demarche' ? 'Démarche en cours vers un spécialiste' : 'Pas de suivi spécialisé actuel';
+    doc.setFontSize(7); doc.setTextColor(...TEXTE2);
+    doc.text('Suivi : ' + suiviLabel, 20, y + 21);
+    y += 29;
 
     const sCol = total_depasse ? ROUGE : VERT;
     doc.setFillColor(...sCol);
@@ -474,12 +521,23 @@ function genererPDF() {
 
     const alertes = ss.filter(s => s.depasse && s.alerte);
     if (alertes.length > 0) {
+        const codes = alertes.map(a => a.cle).join(', ');
         doc.setFillColor(254, 249, 231); doc.setDrawColor(245, 200, 66); doc.setLineWidth(0.4);
         doc.roundedRect(15, y, 180, 12, 2, 2, 'FD');
         doc.setTextColor(133, 96, 0); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
-        doc.text('Recommandation : ', 20, y + 5.5);
-        doc.setFont('helvetica', 'normal');
-        doc.text('Scores ' + alertes.map(a => a.cle).join(', ') + ' au-dessus du seuil — consultation spécialisée recommandée.', 62, y + 5.5, { maxWidth: 131 });
+        if (suiviSpec === 'oui') {
+            doc.text('À noter : ', 20, y + 5.5);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Scores ' + codes + ' > seuil. Enfant déjà suivi — à mentionner lors du prochain rendez-vous spécialisé.', 49, y + 5.5, { maxWidth: 144 });
+        } else if (suiviSpec === 'demarche') {
+            doc.text('À noter : ', 20, y + 5.5);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Scores ' + codes + ' > seuil. Ces résultats complèteront la démarche de consultation spécialisée en cours.', 49, y + 5.5, { maxWidth: 144 });
+        } else {
+            doc.text('Recommandation : ', 20, y + 5.5);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Scores ' + codes + ' au-dessus du seuil — consultation spécialisée recommandée.', 62, y + 5.5, { maxWidth: 131 });
+        }
         y += 17;
     }
 
@@ -493,6 +551,24 @@ function genererPDF() {
     doc.text('Réf. : Bruni O et al. SDSC. J Sleep Res. 1996. — Putois B et al. Sleep Med. 2017;32:56-65.', 15, y);
     y += 8;
 
+    if (contexte) {
+        if (y + 20 > 278) { doc.addPage(); y = 15; }
+        doc.setFillColor(...CREME);
+        doc.roundedRect(15, y, 180, 8, 2, 2, 'F');
+        doc.setTextColor(...CORAIL); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+        doc.text('Éléments de contexte partagés par la famille', 20, y + 5.5);
+        y += 10;
+        const contexteLines = doc.splitTextToSize(contexte, 168);
+        const contexteH = Math.max(12, contexteLines.length * 4.5 + 8);
+        if (y + contexteH > 278) { doc.addPage(); y = 15; }
+        doc.setFillColor(...BLANC); doc.setDrawColor(...BORDURE); doc.setLineWidth(0.3);
+        doc.roundedRect(15, y, 180, contexteH, 2, 2, 'FD');
+        doc.setTextColor(...TEXTE); doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+        doc.text(contexteLines, 20, y + 6);
+        y += contexteH + 5;
+    }
+
+    if (y + 25 > 278) { doc.addPage(); y = 15; }
     doc.setTextColor(...TEXTE); doc.setFontSize(8); doc.setFont('helvetica', 'normal');
     doc.text('Signature / Cachet du médecin :', 15, y);
     doc.setDrawColor(...BORDURE); doc.setLineWidth(0.4);
