@@ -13,6 +13,12 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-BC6ZM4VB7K');
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a');
+            if (link && link.href && link.href.includes('doctolib')) {
+                gtag('event', 'click_doctolib', { page: window.location.pathname });
+            }
+        });
     </script>
 </head>
 <body>
