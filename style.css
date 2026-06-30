@@ -1358,9 +1358,12 @@ footer strong { color: rgba(255, 255, 255, .8); }
         box-shadow: 0 4px 14px rgba(232, 130, 90, .3);
     }
 
-    .hero h1     { font-size: 1.9rem; }
-    .hero-cartes { gap: 1rem; }
-    .hero-carte  { width: 95%; max-width: 300px; }
+    nav { padding: .75rem 1.2rem; }
+
+    .hero         { padding: 3rem 1.2rem 2.5rem; }
+    .hero h1      { font-size: 1.9rem; }
+    .hero-cartes  { gap: 1rem; }
+    .hero-carte   { width: 95%; max-width: 300px; }
 
     .choix            { flex-direction: column; }
     .choix-option     { min-width: unset; }
@@ -1368,14 +1371,76 @@ footer strong { color: rgba(255, 255, 255, .8); }
     .score-total,
     .ss-ligne         { flex-direction: column; align-items: flex-start; }
 
-    .horaires-grille  { grid-template-columns: 1fr 1fr 1fr; font-size: .78rem; }
+    /* Grille horaires : 2 colonnes avec labels pleine largeur */
+    .horaires-grille                      { grid-template-columns: 1fr 1fr; font-size: .82rem; }
+    .horaires-grille .entete-col:first-child { display: none; }
+    .horaires-grille .entete-ligne        { grid-column: 1 / -1; padding-top: .4rem; }
+
+    /* Champ nb réveils : plus de largeur fixe */
+    .reveils-ligne .form-groupe { flex: 1; min-width: 0; }
 
     .etapes { gap: 1rem; }
     .etape  { width: 100%; max-width: 320px; }
+
+    /* Bouton calculer pleine largeur */
+    .btn-calculer { width: 100%; padding: 1rem 1.5rem; }
+
+    /* Boutons résultats empilés */
+    .resultats-actions              { flex-direction: column; }
+    .btn-pdf, .btn-rdv-res          { width: 100%; text-align: center; }
+
+    /* Bouton Doctolib pleine largeur */
+    .btn-doctolib-grand { display: block; text-align: center; }
+
+    /* Ressources */
+    .ressources-hero h1    { font-size: 1.5rem; }
+    .ressource-card        { padding: 1.4rem; }
+    .ressource-dl-row      { flex-direction: column; }
+    .btn-ressource-dl      { width: 100%; text-align: center; justify-content: center; }
+
+    /* Footer */
+    footer p { word-break: break-word; }
 
     .wiz-progress { top: 58px; }
     .wiz-q-text   { font-size: 1.1rem; }
     .opt-btn      { padding: .8rem 1rem; }
     .opt-val      { width: 34px; height: 34px; font-size: .9rem; }
     .wiz-q-wrap   { padding: 1.5rem 1rem 3rem; }
+}
+
+/* ── TRÈS PETITS ÉCRANS (< 480px) ── */
+@media (max-width: 480px) {
+    nav { padding: .65rem 1rem; }
+    .logo-badge  { width: 34px; height: 34px; font-size: 1rem; }
+    .logo-name   { font-size: .9rem; }
+    .logo-sub    { font-size: .62rem; }
+
+    .hero h1    { font-size: 1.6rem; }
+    .hero-sub   { font-size: .9rem; }
+
+    .quest-entete   { padding: 2rem 1.2rem; }
+    .quest-entete h1 { font-size: 1.35rem; }
+
+    .patient-section,
+    .horaires-section  { padding: 1.2rem; }
+    .form-rangee       { gap: .8rem; }
+
+    .question-bloc  { padding: 1rem 1.1rem; }
+    .question-texte { font-size: .9rem; }
+
+    .wiz-q-text   { font-size: 1rem; }
+    .wiz-q-wrap   { padding: 1rem .8rem 3rem; }
+    .opt-btn      { gap: .7rem; }
+    .opt-val      { width: 30px; height: 30px; font-size: .85rem; }
+    .opt-label    { font-size: .9rem; }
+    .opt-sub      { font-size: .72rem; }
+
+    .resultats-section { padding: 1.3rem; }
+    .ss-label { min-width: 0; }
+
+    .comment h2,
+    .presentation h2 { font-size: 1.6rem; }
+
+    .ressources-hero { padding: 2.5rem 1.2rem; }
+    .ressource-card-header { gap: .6rem; }
 }
