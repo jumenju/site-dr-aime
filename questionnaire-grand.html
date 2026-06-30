@@ -253,7 +253,8 @@ function renderWizard() {
 function goToSlide(n) {
     if (n < 0 || n > RESULTS_IDX) return;
     currentSlide = n;
-    document.getElementById('wiz-track').style.transform = `translateX(-${n * 100}%)`;
+    const slideW = document.querySelector('.wiz-outer').getBoundingClientRect().width;
+    document.getElementById('wiz-track').style.transform = `translateX(-${n * slideW}px)`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     updateProgress(n);
     restoreSlide(n);
