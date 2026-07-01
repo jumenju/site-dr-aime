@@ -1409,6 +1409,7 @@ footer strong { color: rgba(255, 255, 255, .8); }
     .ressource-card        { padding: 1.4rem; }
     .ressource-dl-row      { flex-direction: column; }
     .btn-ressource-dl      { width: 100%; text-align: center; justify-content: center; }
+    .annuaire-grid         { grid-template-columns: 1fr; }
 
     /* Footer */
     footer p { word-break: break-word; }
@@ -1470,6 +1471,58 @@ footer strong { color: rgba(255, 255, 255, .8); }
 
     .ressources-hero { padding: 2.5rem 1.2rem; }
     .ressource-card-header { gap: .6rem; }
+}
+
+/* ── ANNUAIRE LOCAL ── */
+.annuaire-intro {
+    font-size: .9rem;
+    color: var(--texte2);
+    line-height: 1.7;
+    margin-bottom: 1.4rem;
+}
+.annuaire-categorie {
+    font-size: .8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--texte2);
+    margin: 1.4rem 0 .7rem;
+}
+.annuaire-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .8rem;
+}
+.annuaire-item {
+    background: var(--creme);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    border: 1.5px solid var(--bordure);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    transition: border-color .2s, box-shadow .2s;
+}
+.annuaire-item:hover {
+    border-color: var(--lavande);
+    box-shadow: 0 4px 14px rgba(0,0,0,.08);
+}
+.annuaire-item-titre {
+    font-weight: 800;
+    color: var(--texte);
+    font-size: .95rem;
+}
+.annuaire-item-desc {
+    font-size: .82rem;
+    color: var(--texte2);
+    line-height: 1.55;
+}
+.annuaire-item-lien {
+    font-size: .8rem;
+    color: var(--lavande);
+    font-weight: 700;
+    margin-top: .2rem;
 }
 
 /* ── SCORE TOTAL INFORMATIF ── */
